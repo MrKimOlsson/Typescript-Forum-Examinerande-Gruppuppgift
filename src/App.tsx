@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider, createBrowserRouter} from 'react-router-dom';
+import RootLayout from './layout/RootLayout';
+import './App.css'
 
-function App() {
+// Pages
+import Home from './pages/home/Home';
+import Forum from './pages/forum/Forum';
+import Thread from './pages/thread/Thread'
+
+const App = () => {
+
+  // Create a BrowserRouter using the createBrowserRouter function
+  const router = createBrowserRouter([
+    {
+      
+      path: '/',
+      element: <RootLayout />,
+      // errorElement: <Error />,
+      children: [
+      // Route for the home page
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'forum',
+        element: <Forum />,
+      },
+      {
+        path: 'thread',
+        element: <Thread />,
+      },     
+      ],
+        
+
+    },
+  ]);
+  // Render the RouterProvider component with the created router if authIsReady is true
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {
+        <div className='app'>
+
+          <RouterProvider router={router} />
+        </div>
+      }
+    </>
   );
-}
+};
 
 export default App;
