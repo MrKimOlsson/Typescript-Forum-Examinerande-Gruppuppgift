@@ -4,8 +4,9 @@ import './App.css'
 
 // Pages
 import Home from './pages/home/Home';
-import Forum from './pages/forum/Forum';
-import Thread from './pages/thread/Thread'
+import Qna from './pages/qna/Qna';
+import General from './pages/general/General'
+import AddThread from './pages/addThread/AddThread';
 
 const App = () => {
 
@@ -23,12 +24,16 @@ const App = () => {
         element: <Home />,
       },
       {
-        path: 'forum',
-        element: <Forum />,
+        path: 'general',
+        element: <General />,
       },
       {
-        path: 'thread',
-        element: <Thread />,
+        path: 'qna',
+        element: <Qna />,
+      },
+      {
+        path: 'add-thread',
+        element: <AddThread />,
       },     
       ],
         

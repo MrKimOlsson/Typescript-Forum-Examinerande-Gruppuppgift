@@ -35,15 +35,17 @@ const Navbar = () => {
             <menu className="menu-desktop">
               {/* <Link to='/' ><img src={Logo} alt="logo" className="link logo-img"/></Link> */}
               <li><NavLink className='nav-link' to='/'>Home</NavLink></li>
-              <li><NavLink className='nav-link' to='/forum'>Forum</NavLink></li>
-              <li><NavLink className='nav-link' to='/thread'>Thread</NavLink></li>
+              <li><NavLink className='nav-link' to='/general'>General</NavLink></li>
+              <li><NavLink className='nav-link' to='/qna'>QNA</NavLink></li>
+              <li><NavLink className='nav-link' to='/add-thread'>Add thread</NavLink></li>
             </menu>
    
             {/*-- Hidden menu --*/}
             <menu className="menuMobile">
                 <li><NavLink className="menuItem" to="/">Home</NavLink></li>
-                <li><NavLink className="menuItem" to='/forum'>Forum</NavLink></li>
-                <li><NavLink className="menuItem" to='/thread'>Thread</NavLink></li>
+                <li><NavLink className="menuItem" to='/general'>General</NavLink></li>
+                <li><NavLink className="menuItem" to='/qna'>QNA</NavLink></li>
+                <li><NavLink className="menuItem" to='/add-thread'>Add thread</NavLink></li>
             </menu>
 
             {/*-- Hamburger --*/}
