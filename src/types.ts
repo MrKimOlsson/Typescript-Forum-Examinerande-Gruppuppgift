@@ -1,4 +1,4 @@
-interface User {
+export interface User {
 	id: number;
 	name: string;
 	userName: string;
@@ -6,23 +6,23 @@ interface User {
 
 type ThreadCategory = "THREAD" | "QNA"
 
-interface Thread {
-  id: number;
+export interface Thread {
+  id: string;
 	title: string;
 	category: ThreadCategory;
 	creationDate: string;
 	description: string;
-	creator: User
+	creator: User;
 }
 
-interface QNAThread extends Thread {
+export interface QNAThread extends Thread {
 	category: "QNA";
 	isAnswered: boolean;
 	commentAnswerId?: number
 }
 
-interface Comment {
-	id: number; //(tillagt)
+export interface Comment {
+	id: number; 
 	thread: number;
 	content: string;
 	creator: User

@@ -1,12 +1,7 @@
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { User } from "../types";
 
 const db = getFirestore();
-
-export interface User {
-  id:       string;
-  name:     string;
-  userName: string;
-}
 
 // hämtar en användare baserat på ID
 export async function getUserById(userId: string): Promise<User | null> {
