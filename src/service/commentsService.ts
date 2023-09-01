@@ -1,18 +1,6 @@
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-
+import { Comment } from "../types";
 const db = getFirestore();
-
-interface Comment {
-  content:  string;
-  creator:  User;
-  id:       string;
-}
-
-interface User {
-  id:       string;
-  name:     string;
-  userName: string;
-}
 
 // lägger till ny kommentar
 async function addComment(comment: Comment): Promise<void> {

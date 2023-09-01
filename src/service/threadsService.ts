@@ -1,21 +1,7 @@
 import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
+import { Thread } from "../types";
 
 const db = getFirestore();
-
-export interface Thread {
-  category:     string;
-  creationDate: Date;
-  creator:      User;
-  description:  string;
-  id:           string;
-  title:        string;
-}
-
-export interface User {
-  id:       string;
-  name:     string;
-  userName: string;
-}
 
 // lägger till en ny tråd
 export async function addThread(thread: Thread): Promise<void> {

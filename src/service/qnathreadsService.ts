@@ -1,26 +1,10 @@
 import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
+import { QNAThread } from "../types";
 
 const db = getFirestore();
 
-export interface QnaThread {
-  category:         string;
-  commentAnswerId:  string;
-  creationDate:     Date;
-  creator:          User;
-  description:      string;
-  id:               string;
-  isAnswered:       boolean;
-  title:            string;
-}
-
-export interface User {
-  id:       string;
-  name:     string;
-  userName: string;
-}
-
 // lägger till en ny tråd
-export async function addQnaThread(qnaThread: QnaThread): Promise<void> {
+export async function addQnaThread(qnaThread: QNAThread): Promise<void> {
   try {
     const qnaThreadRef = doc(db, "qnaThreads", qnaThread.id);
     await setDoc(qnaThreadRef, qnaThread);
@@ -31,14 +15,14 @@ export async function addQnaThread(qnaThread: QnaThread): Promise<void> {
 }
 
 // hämtar en QnA-tråd baserat på ID
-export async function getQnaThreadById(qnaThreadId: string): Promise<QnaThread | null> {
+export async function getQnaThreadById(qnaThreadId: string): Promise<QNAThread | null> {
   try {
     const qnaThreadRef = doc(db, "qnaThreads", qnaThreadId);
     const qnaThreadDoc = await getDoc(qnaThreadRef);
 
     if (qnaThreadDoc.exists()) {
       const qnaThreadData = qnaThreadDoc.data();
-      return qnaThreadData as QnaThread;
+      return qnaThreadData as QNAThread;
     } else {
       return null;
     }
@@ -49,7 +33,7 @@ export async function getQnaThreadById(qnaThreadId: string): Promise<QnaThread |
 }
 
 // hämtar alla QnA-trådar baserat på category
-export async function getQnaThreadsByCategory(category: string): Promise<QnaThread[]> {
+export async function getQnaThreadsByCategory(category: string): Promise<QNAThread[]> {
   try {
     const qnaThreadsQuery = query(
       collection(db, "qnaThreads"),
@@ -57,11 +41,11 @@ export async function getQnaThreadsByCategory(category: string): Promise<QnaThre
     );
 
     const querySnapshot = await getDocs(qnaThreadsQuery);
-    const qnaThreads: QnaThread[] = [];
+    const qnaThreads: QNAThread[] = [];
 
     querySnapshot.forEach((doc) => {
       const qnaThreadData = doc.data();
-      qnaThreads.push(qnaThreadData as QnaThread);
+      qnaThreads.push(qnaThreadData as QNAThread);
     });
 
     return qnaThreads;
