@@ -7,7 +7,7 @@ export interface User {
 type ThreadCategory = "THREAD" | "QNA"
 
 export interface Thread {
-  id: string;
+  	id: string;
 	title: string;
 	category: ThreadCategory;
 	creationDate: string;
