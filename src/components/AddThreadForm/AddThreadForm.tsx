@@ -4,7 +4,9 @@ import { Thread, User } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
+
 import { addUser } from '../../service/userService'
+
 
 // type AddThreadFormProps = {
 //     thread: Thread
@@ -34,6 +36,7 @@ const AddThreadForm = () => {
 
         const userObject: User = {
             id: randomNumber,
+
             name: user,
             userName: user,
         }
@@ -48,7 +51,6 @@ const AddThreadForm = () => {
         })
 
         addUser(userObject)
-
 
         console.log('added new thread' + thread)
         navigate('/')
