@@ -3,12 +3,11 @@ import useDoc from '../../hooks/useDoc';
 import Loader from '../../components/loader/Loader';
 import { useParams } from 'react-router-dom';
 
-const Thread = () => {
+const QnaThread = () => {
 
     const { id } = useParams(); 
-    const { category } = useParams();
 
-    const { data: thread, error, loading } = useDoc(category+'threads', id || '');
+    const { data: thread, error, loading } = useDoc('threads', id || '');
   if (id === undefined) {
     console.error('Failed to get the thread');
     return <p>Thread ID is missing</p>;
@@ -16,6 +15,7 @@ const Thread = () => {
   }
 
   if (!thread) {
+    console.log('No thread found')
     return (
       <div>
         {loading && <Loader />}
@@ -51,4 +51,4 @@ const Thread = () => {
   )
 }
 
-export default Thread
+export default QnaThread

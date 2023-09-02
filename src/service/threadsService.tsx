@@ -16,7 +16,11 @@ import { Thread } from "../types";
 // lägger till en ny tråd
 export async function addThread(thread: Thread): Promise<void> {
   try {
-    const threadRef = doc(db, "threads", thread.id.toString());
+    let category: string = thread.category
+    if(!category){
+      category = "general"
+    }
+    const threadRef = doc(db, category+"threads", thread.id.toString());
     await setDoc(threadRef, thread);
     console.log("Ny tråd skapad med ID:", thread.id);
   } catch (error) {
@@ -45,7 +49,7 @@ export async function getThreadById(threadId: string): Promise<Thread | null> {
 
 async function fetchGeneralThreads(): Promise<Thread[]> {
   try {
-    const GeneralThreadsCollectionRef = collection(db, 'threads');
+    const GeneralThreadsCollectionRef = collection(db, 'generalthreads');
     const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
     const generalThreads: Thread[] = [];
     generalThreadsSnapshot.forEach((doc) => {

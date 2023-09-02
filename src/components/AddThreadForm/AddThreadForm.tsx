@@ -88,6 +88,7 @@ const AddThreadForm = () => {
              onChange={(e) => setCategory(e.target.value)}
              >
                 <option value="general">General</option>
+                <option value="qna">QNA</option>
                 <option value="news">News</option>
                 <option value="sports">Sports</option>
                 <option value="politics">Politics</option>
