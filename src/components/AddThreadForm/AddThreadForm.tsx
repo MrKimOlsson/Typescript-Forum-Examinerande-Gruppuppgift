@@ -6,6 +6,14 @@ import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
 import { addUser, getUserById, getUserByName } from '../../service/userService'
 
+
+// type AddThreadFormProps = {
+//     thread: Thread
+// }
+
+
+
+
 const AddThreadForm = () => {
     const [thread, setThread] = useState<Thread[]>([])
 
@@ -27,6 +35,7 @@ const AddThreadForm = () => {
 
         const userObject: User = {
             id: randomNumber,
+
             name: user,
             userName: user,
         }
@@ -50,7 +59,6 @@ const AddThreadForm = () => {
             }
 
         // addUser(userObject)
-
 
         console.log('added new thread' + thread)
         navigate('/')
