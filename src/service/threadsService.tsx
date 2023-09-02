@@ -61,19 +61,35 @@ async function fetchGeneralThreads(): Promise<Thread[]> {
 
 async function fetchQnaThreads(): Promise<Thread[]> {
   try {
-    const GeneralThreadsCollectionRef = collection(db, 'qnathreads');
-    const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
-    const generalThreads: Thread[] = [];
-    generalThreadsSnapshot.forEach((doc) => {
-      generalThreads.push(doc.data() as Thread);
+    const QnaThreadsCollectionRef = collection(db, 'qnathreads');
+    const qnaThreadsSnapshot = await getDocs(QnaThreadsCollectionRef);
+    const qnaThreads: Thread[] = [];
+    qnaThreadsSnapshot.forEach((doc) => {
+      qnaThreads.push(doc.data() as Thread);
     });
 
-    return generalThreads;
+    return qnaThreads;
   } catch (error) {
-    console.error('Error fetching general threads:', error);
+    console.error('Error fetching qna threads:', error);
     return [];
   }
 }
+
+// async function fetchQnaThreads(): Promise<Thread[]> {
+//   try {
+//     const GeneralThreadsCollectionRef = collection(db, 'qnathreads');
+//     const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
+//     const generalThreads: Thread[] = [];
+//     generalThreadsSnapshot.forEach((doc) => {
+//       generalThreads.push(doc.data() as Thread);
+//     });
+
+//     return generalThreads;
+//   } catch (error) {
+//     console.error('Error fetching general threads:', error);
+//     return [];
+//   }
+// }
 
 
 
