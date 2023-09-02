@@ -4,13 +4,7 @@ import { Thread, User } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
-import { addUser } from '../../service/userService'
-
-// type AddThreadFormProps = {
-//     thread: Thread
-// }
-
-
+import { addUser, getUserById, getUserByName } from '../../service/userService'
 
 const AddThreadForm = () => {
     const [thread, setThread] = useState<Thread[]>([])
@@ -30,7 +24,6 @@ const AddThreadForm = () => {
         const max = 1000000;
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-        // const randomId = parseFloat(Math.random().toString(36).substr(2, 9))
 
         const userObject: User = {
             id: randomNumber,
@@ -38,16 +31,32 @@ const AddThreadForm = () => {
             userName: user,
         }
 
-        addThread({
-            id: randomNumber,
-            title,
-            description,
-            category: category as any,
-            creator: userObject,
-            creationDate: new Date().toISOString(),
-        })
+        const userExists = getUserByName(userObject.name)
+        if(!userExists) {
+            addThread({
+                id: randomNumber,
+                title,
+                description,
+                category: category as any,
+                creator: userObject,
+                creationDate: new Date().toISOString(),
+            })
+            console.log('added new thread and user')
 
-        addUser(userObject)
+        } else {
+            addThread({
+                id: randomNumber,
+                title,
+                description,
+                category: category as any,
+                creator: userObject,
+                creationDate: new Date().toISOString(),
+            })
+            addUser(userObject)
+            console.log('did not add thread ')
+        }
+
+        // addUser(userObject)
 
 
         console.log('added new thread' + thread)
