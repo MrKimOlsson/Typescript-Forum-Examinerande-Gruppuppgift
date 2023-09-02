@@ -21,7 +21,7 @@ const initialState: ThreadsState = {
 
 
 export const getThreads = createAsyncThunk(
-  'threads/getAll',
+  'generalthreads/getAll',
   async (_, thunkAPI) => {
     try {
       return await threadsService.fetchGeneralThreads();
@@ -32,7 +32,7 @@ export const getThreads = createAsyncThunk(
 );
 
 const threadsSlice = createSlice({
-  name: 'threads',
+  name: 'generalthreads',
   initialState,
   reducers: {
     setThreadsList: (state, action: PayloadAction<Thread[]>) => {

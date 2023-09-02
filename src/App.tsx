@@ -37,7 +37,7 @@ const App = () => {
         element: <AddThread />,
       },     
       {
-        path: 'thread/:id',
+        path: 'thread/:category/:id',
         element: <Thread />,
       },   
       ],
