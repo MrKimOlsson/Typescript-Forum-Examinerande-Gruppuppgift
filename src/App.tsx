@@ -7,6 +7,7 @@ import Home from './pages/home/Home';
 import Qna from './pages/qna/Qna';
 import General from './pages/general/General'
 import AddThread from './pages/addThread/AddThread';
+import Thread from './pages/thread/Thread';
 
 const App = () => {
 
@@ -35,9 +36,11 @@ const App = () => {
         path: 'add-thread',
         element: <AddThread />,
       },     
+      {
+        path: 'thread/:id',
+        element: <Thread />,
+      },   
       ],
-        
-
     },
   ]);
   // Render the RouterProvider component with the created router if authIsReady is true
