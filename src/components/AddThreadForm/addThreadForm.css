@@ -1,0 +1,62 @@
+.wrapper {
+}
+
+.thread-form {
+    width: 80%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-top: 1rem;
+    margin-bottom: .3rem;
+}
+
+.input-group input {
+    font-size: 16px;
+    margin-block: .5rem;
+    border-radius: .5rem;
+    border: 0;
+    padding: .5rem;
+}
+
+.input-group input:focus {
+    outline: none;
+}
+
+.form-textarea {
+    border: 0;
+    border-radius: .5rem;
+    resize: none;
+    padding-block: .5rem;  
+}
+
+.form-textarea:focus {
+    outline: none;
+}
+
+select {
+    border: 0;
+    padding-block: .5rem;
+    border-radius: .5rem;
+}
+
+select:focus {
+    outline: none;
+}
+
+.thread-form button {
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    border: 0;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
