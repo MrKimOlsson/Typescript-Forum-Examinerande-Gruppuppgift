@@ -17,7 +17,7 @@ const AddThreadForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const addNewThread = (e: React.FormEvent<HTMLFormElement>) => {
+    const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const min = 1;
@@ -31,8 +31,6 @@ const AddThreadForm = () => {
             userName: user,
         }
 
-        const userExists = getUserByName(userObject.name)
-        if(!userExists) {
             addThread({
                 id: randomNumber,
                 title,
@@ -41,20 +39,15 @@ const AddThreadForm = () => {
                 creator: userObject,
                 creationDate: new Date().toISOString(),
             })
-            console.log('added new thread and user')
 
-        } else {
-            addThread({
-                id: randomNumber,
-                title,
-                description,
-                category: category as any,
-                creator: userObject,
-                creationDate: new Date().toISOString(),
-            })
-            addUser(userObject)
-            console.log('did not add thread ')
-        }
+            const userByName = await getUserByName(userObject.name)
+            console.log(userByName?.name)
+            if(userByName) {
+                console.log('user already exist')
+            } else {
+                console.log('user does not exist')
+                addUser(userObject)
+            }
 
         // addUser(userObject)
 
