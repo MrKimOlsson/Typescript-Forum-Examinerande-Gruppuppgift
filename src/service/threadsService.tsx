@@ -1,5 +1,5 @@
 import { db } from "../firebase/config"
-import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot } from "firebase/firestore";
+import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot } from "firebase/firestore";
 import { Thread } from "../types";
 
 // const db = getFirestore();
@@ -100,9 +100,20 @@ export async function getThreadsByCategory(category: string): Promise<Thread[]> 
   }
 }
 
+async function deleteThread(threadId: string): Promise<void> {
+  try {
+    const threadRef = doc(db, 'threads', threadId);
+    await deleteDoc(threadRef);
+  } catch (error) {
+    console.error('Error deleting thread:', error);
+    throw error; 
+  }
+}
+
 const threadsSevice = {
   fetchGeneralThreads,
-  fetchQnaThreads
+  fetchQnaThreads,
+  deleteThread
 }
 
 export default threadsSevice
