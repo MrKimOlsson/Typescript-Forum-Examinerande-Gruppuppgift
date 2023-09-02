@@ -4,10 +4,11 @@ import { Thread, User } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
+import { addUser } from '../../service/userService'
 
-type AddThreadFormProps = {
-    thread: Thread
-}
+// type AddThreadFormProps = {
+//     thread: Thread
+// }
 
 
 
@@ -20,38 +21,33 @@ const AddThreadForm = () => {
     const [user, setUser] = useState<string>('')
 
     const navigate = useNavigate()
-
-
     const dispatch = useDispatch()
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const { name, value } = event.target
-        setThread(prevState => ({
-            ...prevState,
-            [name]: value
-        }))
-    }
 
     const addNewThread = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log('added new hotel')
 
-        const randomId = parseFloat(Math.random().toString(36).substr(2, 9))
+        const min = 1;
+        const max = 1000000;
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // const randomId = parseFloat(Math.random().toString(36).substr(2, 9))
 
         const userObject: User = {
-            id: randomId,
+            id: randomNumber,
             name: user,
             userName: user,
         }
 
         addThread({
-            id: Math.random().toString(36).substr(2, 9),
+            id: randomNumber,
             title,
             description,
             category: category as any,
             creator: userObject,
             creationDate: new Date().toISOString(),
         })
+
+        addUser(userObject)
 
 
         console.log('added new thread' + thread)
@@ -90,7 +86,6 @@ const AddThreadForm = () => {
              onChange={(e) => setCategory(e.target.value)}
              >
                 <option value="general">General</option>
-                <option value="qna">Q&A</option>
                 <option value="news">News</option>
                 <option value="sports">Sports</option>
                 <option value="politics">Politics</option>

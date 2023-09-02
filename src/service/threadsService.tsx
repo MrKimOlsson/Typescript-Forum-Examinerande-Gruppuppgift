@@ -16,7 +16,7 @@ import { Thread } from "../types";
 // lägger till en ny tråd
 export async function addThread(thread: Thread): Promise<void> {
   try {
-    const threadRef = doc(db, "threads", thread.id);
+    const threadRef = doc(db, "threads", thread.id.toString());
     await setDoc(threadRef, thread);
     console.log("Ny tråd skapad med ID:", thread.id);
   } catch (error) {

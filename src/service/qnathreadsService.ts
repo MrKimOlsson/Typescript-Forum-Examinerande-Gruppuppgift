@@ -6,7 +6,7 @@ const db = getFirestore();
 // lägger till en ny tråd
 export async function addQnaThread(qnaThread: QNAThread): Promise<void> {
   try {
-    const qnaThreadRef = doc(db, "qnaThreads", qnaThread.id);
+    const qnaThreadRef = doc(db, "qnaThreads", qnaThread.id.toString());
     await setDoc(qnaThreadRef, qnaThread);
     console.log("Ny QnA-tråd skapad med ID:", qnaThread.id);
   } catch (error) {
