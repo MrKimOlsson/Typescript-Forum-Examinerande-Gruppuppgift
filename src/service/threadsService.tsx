@@ -2,32 +2,18 @@ import { db } from "../firebase/config"
 import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot } from "firebase/firestore";
 import { Thread } from "../types";
 
-// const db = getFirestore();
-
-// interface Thread {
-// id: string;
-// title: string;
-// category: ThreadCategory;
-// creationDate: string;
-// description: string;
-// creator: object;
-// }
 
 // lägger till en ny tråd
 export async function addThread(thread: Thread): Promise<void> {
   try {
-    let category: string = thread.category
-    if(!category){
-      category = "general"
-    }
-    const threadRef = doc(db, category+"threads", thread.id.toString());
+
+    const threadRef = doc(db, thread.category+"threads", thread.id.toString());
     await setDoc(threadRef, thread);
     console.log("Ny tråd skapad med ID:", thread.id);
   } catch (error) {
     console.error("Fel vid tillägg av tråd:", error);
   }
 }
-
 
 // hämtar en tråd baserat på ID
 export async function getThreadById(threadId: string): Promise<Thread | null> {
