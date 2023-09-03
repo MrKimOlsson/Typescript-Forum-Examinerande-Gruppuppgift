@@ -20,13 +20,25 @@ const initialState: ThreadsState = {
   };
 
 
+  // export const getQnaThreads = createAsyncThunk(
+  //   'qnathreads/getAll',
+  //   async (_, thunkAPI) => {
+  //     try {
+  //       return await threadsService.fetchQnaThreads();
+  //     } catch (err) {
+  //       return thunkAPI.rejectWithValue((err as Error).message);
+  //     }
+  //   }
+  // );
+
   export const getQnaThreads = createAsyncThunk(
     'qnathreads/getAll',
     async (_, thunkAPI) => {
       try {
-        return await threadsService.fetchQnaThreads();
+        const response = await threadsService.fetchQnaThreads();
+        return response;
       } catch (err) {
-        return thunkAPI.rejectWithValue((err as Error).message);
+        return Promise.reject((err as Error).message); // Explicitly return a rejected promise
       }
     }
   );

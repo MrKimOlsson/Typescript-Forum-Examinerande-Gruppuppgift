@@ -16,7 +16,6 @@ const General = () => {
         ) : (
           <h2>No products to show</h2>
         )}
-
         <div></div>
     </div>
   )
