@@ -35,7 +35,6 @@ const AddThreadForm = () => {
 
         const userObject: User = {
             id: randomNumber,
-
             name: user,
             userName: user,
         }
@@ -50,9 +49,11 @@ const AddThreadForm = () => {
             })
 
             const userByName = await getUserByName(userObject.name)
-            console.log(userByName?.name)
+            console.log(userByName)
             if(userByName) {
                 console.log('user already exist')
+                navigate('/')
+                return
             } else {
                 console.log('user does not exist')
                 addUser(userObject)
@@ -61,7 +62,6 @@ const AddThreadForm = () => {
         // addUser(userObject)
 
         console.log('added new thread' + thread)
-        navigate('/')
     }
 
 
@@ -70,6 +70,7 @@ const AddThreadForm = () => {
         <div className="input-group">
             <label htmlFor="title" className='form-label'>Title</label>
             <input
+             required
              onChange={(e) => setTitle(e.target.value)} 
              type="text" 
              className='form-control' 
@@ -80,6 +81,7 @@ const AddThreadForm = () => {
         <div className="input-group">
             <label htmlFor="description" className='form-label'>Description</label>
             <textarea
+             required
              value={description}
              onChange={(e) => setDescription(e.target.value)}
              className='form-textarea' 
@@ -90,6 +92,7 @@ const AddThreadForm = () => {
         <div className='input-group'>
             <label htmlFor="category" className='form-label'>Category</label>
             <select
+             required
              className='form-select' 
              id='category'
              value={category}
@@ -105,6 +108,7 @@ const AddThreadForm = () => {
         <div className='input-group'>
             <label htmlFor="user" className='form-label'>Publisher</label>
             <input
+             required
              value={user}
              onChange={(e) => setUser(e.target.value)}
              type="text" 

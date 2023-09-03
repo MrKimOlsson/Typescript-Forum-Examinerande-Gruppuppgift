@@ -1,4 +1,4 @@
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { User } from "../types";
 
 const db = getFirestore();
@@ -23,17 +23,22 @@ export async function getUserById(userId: number): Promise<User | null> {
 
 export async function getUserByName(name: string): Promise<User | null> {
   try {
-    const userRef = doc(db, "users", name);
-    const userDoc = await getDoc(userRef);
+    const usersCollection = collection(db, 'users');
+    const q = query(usersCollection, where('name', '==', name));
+    
+    const querySnapshot = await getDocs(q);
 
-    if (userDoc.exists()) {
+    if (!querySnapshot.empty) {
+      // Assuming there's only one user with a given name, you can access it like this:
+      const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
       return userData as User;
     } else {
+      console.log("User not found.");
       return null;
     }
   } catch (error) {
-    console.error("Fel vid hämtning av användare:", error);
+    console.error("Error fetching user:", error);
     return null;
   }
 }
