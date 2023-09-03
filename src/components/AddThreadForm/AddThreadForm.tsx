@@ -4,13 +4,13 @@ import { Thread, User } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
-
-import { addUser } from '../../service/userService'
+import { addUser, getUserById, getUserByName } from '../../service/userService'
 
 
 // type AddThreadFormProps = {
 //     thread: Thread
 // }
+
 
 
 
@@ -25,35 +25,43 @@ const AddThreadForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const addNewThread = (e: React.FormEvent<HTMLFormElement>) => {
+    const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const min = 1;
         const max = 1000000;
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-        // const randomId = parseFloat(Math.random().toString(36).substr(2, 9))
 
         const userObject: User = {
             id: randomNumber,
-
             name: user,
             userName: user,
         }
 
-        addThread({
-            id: randomNumber,
-            title,
-            description,
-            category: category as any,
-            creator: userObject,
-            creationDate: new Date().toISOString(),
-        })
+            addThread({
+                id: randomNumber,
+                title,
+                description,
+                category: category as any,
+                creator: userObject,
+                creationDate: new Date().toISOString(),
+            })
 
-        addUser(userObject)
+            const userByName = await getUserByName(userObject.name)
+            console.log(userByName)
+            if(userByName) {
+                console.log('user already exist')
+                navigate('/')
+                return
+            } else {
+                console.log('user does not exist')
+                addUser(userObject)
+            }
+
+        // addUser(userObject)
 
         console.log('added new thread' + thread)
-        navigate('/')
     }
 
 
@@ -62,6 +70,7 @@ const AddThreadForm = () => {
         <div className="input-group">
             <label htmlFor="title" className='form-label'>Title</label>
             <input
+             required
              onChange={(e) => setTitle(e.target.value)} 
              type="text" 
              className='form-control' 
@@ -72,6 +81,7 @@ const AddThreadForm = () => {
         <div className="input-group">
             <label htmlFor="description" className='form-label'>Description</label>
             <textarea
+             required
              value={description}
              onChange={(e) => setDescription(e.target.value)}
              className='form-textarea' 
@@ -82,6 +92,7 @@ const AddThreadForm = () => {
         <div className='input-group'>
             <label htmlFor="category" className='form-label'>Category</label>
             <select
+             required
              className='form-select' 
              id='category'
              value={category}
@@ -99,6 +110,7 @@ const AddThreadForm = () => {
         <div className='input-group'>
             <label htmlFor="user" className='form-label'>Publisher</label>
             <input
+             required
              value={user}
              onChange={(e) => setUser(e.target.value)}
              type="text" 
