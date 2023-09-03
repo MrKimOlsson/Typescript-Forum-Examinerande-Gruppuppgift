@@ -2,28 +2,18 @@ import { db } from "../firebase/config"
 import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot } from "firebase/firestore";
 import { Thread } from "../types";
 
-// const db = getFirestore();
-
-// interface Thread {
-// id: string;
-// title: string;
-// category: ThreadCategory;
-// creationDate: string;
-// description: string;
-// creator: object;
-// }
 
 // lägger till en ny tråd
 export async function addThread(thread: Thread): Promise<void> {
   try {
-    const threadRef = doc(db, "threads", thread.id.toString());
+
+    const threadRef = doc(db, thread.category+"threads", thread.id.toString());
     await setDoc(threadRef, thread);
     console.log("Ny tråd skapad med ID:", thread.id);
   } catch (error) {
     console.error("Fel vid tillägg av tråd:", error);
   }
 }
-
 
 // hämtar en tråd baserat på ID
 export async function getThreadById(threadId: string): Promise<Thread | null> {
@@ -45,7 +35,7 @@ export async function getThreadById(threadId: string): Promise<Thread | null> {
 
 async function fetchGeneralThreads(): Promise<Thread[]> {
   try {
-    const GeneralThreadsCollectionRef = collection(db, 'threads');
+    const GeneralThreadsCollectionRef = collection(db, 'generalthreads');
     const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
     const generalThreads: Thread[] = [];
     generalThreadsSnapshot.forEach((doc) => {
@@ -61,19 +51,35 @@ async function fetchGeneralThreads(): Promise<Thread[]> {
 
 async function fetchQnaThreads(): Promise<Thread[]> {
   try {
-    const GeneralThreadsCollectionRef = collection(db, 'qnathreads');
-    const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
-    const generalThreads: Thread[] = [];
-    generalThreadsSnapshot.forEach((doc) => {
-      generalThreads.push(doc.data() as Thread);
+    const QnaThreadsCollectionRef = collection(db, 'qnathreads');
+    const qnaThreadsSnapshot = await getDocs(QnaThreadsCollectionRef);
+    const qnaThreads: Thread[] = [];
+    qnaThreadsSnapshot.forEach((doc) => {
+      qnaThreads.push(doc.data() as Thread);
     });
 
-    return generalThreads;
+    return qnaThreads;
   } catch (error) {
-    console.error('Error fetching general threads:', error);
+    console.error('Error fetching qna threads:', error);
     return [];
   }
 }
+
+// async function fetchQnaThreads(): Promise<Thread[]> {
+//   try {
+//     const GeneralThreadsCollectionRef = collection(db, 'qnathreads');
+//     const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
+//     const generalThreads: Thread[] = [];
+//     generalThreadsSnapshot.forEach((doc) => {
+//       generalThreads.push(doc.data() as Thread);
+//     });
+
+//     return generalThreads;
+//   } catch (error) {
+//     console.error('Error fetching general threads:', error);
+//     return [];
+//   }
+// }
 
 
 

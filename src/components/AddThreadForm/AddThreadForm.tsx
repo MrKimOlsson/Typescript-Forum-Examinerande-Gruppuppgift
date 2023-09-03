@@ -19,7 +19,7 @@ const AddThreadForm = () => {
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('general')
     const [user, setUser] = useState<string>('')
 
     const navigate = useNavigate()
@@ -86,8 +86,10 @@ const AddThreadForm = () => {
              id='category'
              value={category}
              onChange={(e) => setCategory(e.target.value)}
+             
              >
                 <option value="general">General</option>
+                <option value="qna">QNA</option>
                 <option value="news">News</option>
                 <option value="sports">Sports</option>
                 <option value="politics">Politics</option>

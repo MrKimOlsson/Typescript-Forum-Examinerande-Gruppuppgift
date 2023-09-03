@@ -27,7 +27,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread }) => {
   }
   return (
     <div className='thread'>
-      <Link to={`/thread/${thread.id}`}>
+      <Link to={`/thread/${thread.category}/${thread.id}`}>
         <h4 className='productTitle'>Title: {thread.title}</h4>
         <p>Thread description: {thread.description}</p>
         <p>Category{thread.category}</p>
