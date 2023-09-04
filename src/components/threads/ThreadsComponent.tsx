@@ -39,6 +39,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread }) => {
         <p>Username: {thread.creator.userName}</p>
         <p>ID: {thread.creator.id}</p>
       </Link>
+      <Link to={`/edit-thread/${thread.id}`} className='edit-link'>Edit</Link>
       <button onClick={handleDelete}>Delete</button> 
     </div>
   )
