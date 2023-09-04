@@ -3,14 +3,32 @@ import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../service/threadsService';
 import { useNavigate } from 'react-router-dom';
 import '../../index.css'
+import { Thread, ThreadCategory, User } from '../../types';
 
 const EditThreadForm: React.FC = () => {
-  const { threadId } = useParams<{ threadId?: string }>();
-  const [thread, setThread] = useState<any>(null);
-  const [newThreadInfo, setNewThreadInfo] = useState<any>({
+  const [user, setUser] = useState<string>('')
+  const [category, setCategory] = useState<ThreadCategory>()
+
+  const min: number = 1;
+  const max: number = 1000000;
+  const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const userObject: User = {
+      id: randomNumber,
+      name: user,
+      userName: user + randomNumber,
+  }
+
+
+  const { threadId } = useParams<{ threadId: string }>();
+  const [thread, setThread] = useState<Thread | null>(null);
+  const [newThreadInfo, setNewThreadInfo] = useState<Thread>({
     title: '',
     description: '',
-    category: '',
+    category: category as ThreadCategory,
+    id: randomNumber,
+    creator: userObject,
+    creationDate: new Date().toISOString(),
   });
   const navigate = useNavigate();
 
@@ -27,6 +45,9 @@ const EditThreadForm: React.FC = () => {
               title: response.title,
               description: response.description,
               category: response.category,
+              id: response.id,
+              creator: response.creator,
+              creationDate: response.creationDate,
             });
           } else {
             console.log('Tråden hittades inte.');
