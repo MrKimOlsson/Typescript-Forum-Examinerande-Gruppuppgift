@@ -4,19 +4,10 @@ import { Thread, User } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
-import { addUser, getUserById, getUserByName } from '../../service/userService'
-
-
-// type AddThreadFormProps = {
-//     thread: Thread
-// }
-
-
-
+import { addUser, getUserByName } from '../../service/userService'
 
 const AddThreadForm = () => {
     const [thread, setThread] = useState<Thread[]>([])
-
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('general')
@@ -31,7 +22,6 @@ const AddThreadForm = () => {
         const min = 1;
         const max = 1000000;
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
 
         const userObject: User = {
             id: randomNumber,
@@ -49,7 +39,6 @@ const AddThreadForm = () => {
             })
 
             const userByName = await getUserByName(userObject.name)
-            console.log(userByName)
             if(userByName) {
                 console.log('user already exist')
                 navigate('/')
@@ -58,10 +47,6 @@ const AddThreadForm = () => {
                 console.log('user does not exist')
                 addUser(userObject)
             }
-
-        // addUser(userObject)
-
-        console.log('added new thread' + thread)
     }
 
 
@@ -97,7 +82,6 @@ const AddThreadForm = () => {
              id='category'
              value={category}
              onChange={(e) => setCategory(e.target.value)}
-             
              >
                 <option value="general">General</option>
                 <option value="qna">QNA</option>
@@ -118,7 +102,6 @@ const AddThreadForm = () => {
              id='user' 
              />
         </div>
-
         <button type='submit'>Publish</button>
     </form>
   )
