@@ -1,33 +1,37 @@
-import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import useDoc from '../../hooks/useDoc';
 import Loader from '../../components/loader/Loader';
 import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/AddCommentForm/CommentForm';
-import { addComment, getCommentsByThreadId } from '../../service/commentsService';
+import { addComment, getCommentsByThreadId, deleteComment } from '../../service/commentsService';
+import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
 import { Comment } from '../../types';
 import { useState, useEffect } from 'react';
 import './Thread.css'
+import { AppDispatch } from '../../store';
+
+
+
 
 const Thread = () => {
+  const { id, category } = useParams<{ id: string; category: string }>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const { id } = useParams();
-  const [comments, setComments] = useState<Comment[]>([]);
-  const { data: thread, error, loading } = useDoc('threads', id || '');
+  const comments = useSelector((state: any) => state.comments.comments);
+  const commentsLoading = useSelector((state: any) => state.comments.loading);
+
+  const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
   useEffect(() => {
-    const fetchComments = async () => {
-      if (id) {
-        const fetchedComments = await getCommentsByThreadId(parseInt(id));
-        console.log("Fetched Comments:", fetchedComments);
-        setComments(fetchedComments);
-      }
-    };
+    if (id) {
+      dispatch(fetchCommentsByThreadId(parseInt(id, 10))); 
+    }
 
-    fetchComments();
-  }, [id]);
+  }, [id, dispatch]);
 
 
   if (id === undefined) {
+    console.error('Failed to get the thread');
     return <p>Thread ID is missing</p>;
   }
 
@@ -52,13 +56,22 @@ const Thread = () => {
         content: commentText
       };
 
-      await addComment(id, comment);
+      const newComment = await addComment(id, comment);
+      dispatch(addCommentToSlice({ ...newComment }));
       console.log('Comment added successfully');
     } catch (error) {
       console.error('Error adding comment:', error);
     }
-  }
+  };
 
+  const handleDeleteComment = async (id: number) => {
+    try {
+      await dispatch(deleteCommentAsync(id));
+      console.log('Comment deleted successfully');
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
 
 
   return (
@@ -78,16 +91,16 @@ const Thread = () => {
 
       <div className='thread'>
         <h4>Comments:</h4>
-        {comments.map(comment => (
+        {commentsLoading && <Loader />}
+        {comments.map((comment: Comment) => (
           <div key={comment.id} className="comment-card">
             <p>User: {comment.creator.name}</p>
             <p>{comment.content}</p>
+            <p>{comment.id}</p>
+            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
           </div>
         ))}
       </div>
-
-
-
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
   );

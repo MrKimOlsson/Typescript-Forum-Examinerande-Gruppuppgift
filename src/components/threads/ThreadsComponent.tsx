@@ -18,13 +18,13 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread }) => {
     try {
       await threadsService.deleteThread(String(thread.id));
       console.log('Thread deleted successfully');
-
-      dispatch(removeThread(String(thread.id))); 
-
+      dispatch(removeThread(String(thread.id)));
     } catch (error) {
       console.error('Failed to delete thread:', error);
     }
   }
+
+
   return (
     <div className='thread'>
       <Link to={`/thread/${thread.category}/${thread.id}`}>
@@ -39,7 +39,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread }) => {
         <p>Username: {thread.creator.userName}</p>
         <p>ID: {thread.creator.id}</p>
       </Link>
-      <button onClick={handleDelete}>Delete</button> {/* Add the delete button */}
+      <button onClick={handleDelete}>Delete</button> 
     </div>
   )
 }

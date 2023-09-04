@@ -108,13 +108,15 @@ export async function getThreadsByCategory(category: string): Promise<Thread[]> 
 
 async function deleteThread(threadId: string): Promise<void> {
   try {
-    const threadRef = doc(db, 'threads', threadId);
+    const threadRef = doc(db, 'generalthreads', threadId);
     await deleteDoc(threadRef);
   } catch (error) {
     console.error('Error deleting thread:', error);
-    throw error; 
+    throw error;
   }
 }
+
+
 
 const threadsSevice = {
   fetchGeneralThreads,
