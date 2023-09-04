@@ -18,11 +18,12 @@ const CommentForm: React.FC<{ onCommentSubmit: (comment: string) => void }> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <textarea
-        value={commentText}
-        onChange={(e) => setCommentText(e.target.value)}
-        placeholder="Write your comment here..."
-      />
+      <div>
+        <textarea
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+          placeholder="Write your comment here..."/>
+      </div>
       <button type="submit">Submit Comment</button>
     </form>
   );

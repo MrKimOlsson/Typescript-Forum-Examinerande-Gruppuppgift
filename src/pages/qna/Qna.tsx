@@ -8,13 +8,17 @@ const Qna = () => {
   const qnaThreadsList = useSelector((state: RootState) => state.qnaThreads.qnaThreadsList);
 
   return (
-    <div className='wrapper'>
-      <h2>QNA threads</h2>
+    <div className='threadWrapper'>
+      <div className='categoryWrapper'>
+        <h2>QNA threads</h2>
+      </div>
       <FetchQnaThreads />
       {qnaThreadsList.length > 0 ? (
-        qnaThreadsList.map(thread => <ThreadsComponent key={thread.id} thread={thread} />)
+        qnaThreadsList.map((thread, index) => ( // Include the 'index' prop
+          <ThreadsComponent key={thread.id} thread={thread} index={index} /> // Pass the 'index' prop
+        ))
       ) : (
-        <h2>No products to show</h2>
+        <h2>No threads to show</h2>
       )}
       <div></div>
     </div>

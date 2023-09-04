@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import '../../index.css'
 
 const EditThreadForm: React.FC = () => {
-  const { threadId } = useParams<{ threadId?: string }>();
+  const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
+  console.log(category)
+  console.log(threadId)
   const [thread, setThread] = useState<any>(null);
   const [newThreadInfo, setNewThreadInfo] = useState<any>({
     title: '',
@@ -16,7 +18,7 @@ const EditThreadForm: React.FC = () => {
 
   useEffect(() => {
     if (threadId) {
-      getThreadById(threadId)
+      getThreadById(threadId, category)
         .then((response) => {
           if (response) {
             console.log(response);
@@ -51,7 +53,7 @@ const EditThreadForm: React.FC = () => {
     e.preventDefault();
   
     if (threadId) {
-      await updateThread(threadId, newThreadInfo);
+      await updateThread(threadId, thread, newThreadInfo);
 
       navigate('/general')
     //   navigate(`/general/${threadId}`);
