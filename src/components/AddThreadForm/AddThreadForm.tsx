@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User } from '../../types'
+import { Thread, User, ThreadCategory } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
@@ -19,21 +19,21 @@ const AddThreadForm = () => {
     const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const min = 1;
-        const max = 1000000;
-        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        const min: number = 1;
+        const max: number = 1000000;
+        const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
         const userObject: User = {
             id: randomNumber,
             name: user,
-            userName: user,
+            userName: user + randomNumber,
         }
 
             addThread({
                 id: randomNumber,
                 title,
                 description,
-                category: category as any,
+                category: category as ThreadCategory,
                 creator: userObject,
                 creationDate: new Date().toISOString(),
             })
