@@ -55,9 +55,12 @@ async function deleteThread(threadId: string): Promise<void> {
   }
 }
 
-export async function updateThread(threadId: string, updatedThread: Partial<Thread>): Promise<void> {
+export async function updateThread(threadId: string, thread: Thread, updatedThread: Partial<Thread>): Promise<void> {
   try {
-    const threadRef = doc(db, 'generalthreads', threadId); // Ändra till 'generalthreads'
+    const threadRef = doc(db, thread.category+"threads", threadId); // Ändra till 'generalthreads'
+    console.log(thread.category)
+    console.log(threadId)
+    console.log(thread)
     await updateDoc(threadRef, updatedThread);
     console.log('Tråden har uppdaterats:', threadId);
   } catch (error) {
@@ -66,9 +69,9 @@ export async function updateThread(threadId: string, updatedThread: Partial<Thre
   }
 }
 
-export async function getThreadById(threadId: string): Promise<any | null> {
+export async function getThreadById(threadId: string, category?: string): Promise<any | null> {
   try {
-    const threadRef = doc(db, 'generalthreads', threadId); // Ändra till 'generalthreads'
+    const threadRef = doc(db, category+"threads", threadId); // Ändra till 'generalthreads'
     const threadDoc = await getDoc(threadRef);
 
     if (threadDoc.exists()) {
@@ -83,29 +86,6 @@ export async function getThreadById(threadId: string): Promise<any | null> {
   }
 }
 
-
-
-// export async function getThreadsByCategory(category: string): Promise<Thread[]> {
-//   try {
-//     const threadsQuery = query(
-//       collection(db, "threads"),
-//       where("category", "==", category)
-//     );
-
-//     const querySnapshot = await getDocs(threadsQuery);
-//     const threads: Thread[] = [];
-
-//     querySnapshot.forEach((doc) => {
-//       const threadData = doc.data();
-//       threads.push(threadData as Thread);
-//     });
-
-//     return threads;
-//   } catch (error) {
-//     console.error("Fel vid hämtning av trådar inom kategorin:", error);
-//     return [];
-//   }
-// }
 
 const threadsSevice = {
   fetchGeneralThreads,

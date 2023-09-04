@@ -7,8 +7,8 @@ import { addComment } from '../../service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
 import { Comment, Thread as ThreadType } from '../../types';
 import { useEffect } from 'react';
-import './Thread.css'
 import { AppDispatch, RootState } from '../../store';
+import CommentsComponent from '../../components/comments/CommentsComponent';
 
 function isValidComment(comment: any): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
@@ -71,41 +71,40 @@ const Thread = () => {
       console.error('Error deleting comment:', error);
     }
   };
-
-
+  
   return (
     <div className='wrapper'>
       <div className='thread'>
-        <h4>Title: {thread.title}</h4>
-        <p>Thread description: {thread.description}</p>
-        <p>Category: {thread.category}</p>
-        <p>Creation date: {thread.creationDate}</p>
-        <p>Thread ID: {thread.id}</p>
-        <br />
-        <p><strong>Thread Creator</strong></p>
-        <p>Name: {thread.creator.name}</p>
-        <p>Username: {thread.creator.userName}</p>
-        <p>ID: {thread.creator.id}</p>
+        <div className='content'>
+          <h4>Title: {thread.title}</h4>
+          <p>Thread description: {thread.description}</p>
+          <p>Category{thread.category}</p>
+          <p>Creation date{thread.creationDate}</p>
+          <p>Thread ID: {thread.id}</p>
+          <br />
+          <p><strong>Thread Creator</strong></p>
+          <p>Name: {thread.creator.name}</p>
+          <p>Username: {thread.creator.userName}</p>
+          <p>ID: {thread.creator.id}</p>
+        </div>
       </div>
 
+      <div className='titleWrapper'>
+      <h4>Comments:</h4>
+      </div>
       <div className='thread'>
-        <h4>Comments:</h4>
         {commentsLoading && <Loader />}
-        {comments.map((comment) => (
-          isValidComment(comment) ? (
-            <div key={comment.id} className="comment-card">
-              <p>User: {comment.creator.name}</p>
-              <p>{comment.content}</p>
-              <p>{comment.id}</p>
-              <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-            </div>
+          {comments.length > 0 ? (
+          comments.map((comment: Comment, index: number) => (
+            <CommentsComponent key={comment.id} comment={comment} index={index} /> // Pass the 'index' prop
+            ))
           ) : (
-            <p>Invalid comment data</p>
-          )
-        ))}
+            <h2>No threads to show</h2>
+          )}          
       </div>
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
+   
   );
 };
 

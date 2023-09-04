@@ -38,7 +38,7 @@ const App = () => {
         element: <AddThread />,
       },     
       {
-        path: 'edit-thread/:threadId', 
+        path: 'edit-thread/:category/:threadId', 
         element: <EditThread />,
       },
       {
