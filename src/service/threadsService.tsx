@@ -57,7 +57,7 @@ async function deleteThread(threadId: string): Promise<void> {
 
 export async function updateThread(threadId: string, updatedThread: Partial<Thread>): Promise<void> {
   try {
-    const threadRef = doc(db, 'threads', threadId);
+    const threadRef = doc(db, 'generalthreads', threadId); // Ändra till 'generalthreads'
     await updateDoc(threadRef, updatedThread);
     console.log('Tråden har uppdaterats:', threadId);
   } catch (error) {
@@ -68,7 +68,7 @@ export async function updateThread(threadId: string, updatedThread: Partial<Thre
 
 export async function getThreadById(threadId: string): Promise<any | null> {
   try {
-    const threadRef = doc(db, 'threads', threadId);
+    const threadRef = doc(db, 'generalthreads', threadId); // Ändra till 'generalthreads'
     const threadDoc = await getDoc(threadRef);
 
     if (threadDoc.exists()) {
@@ -82,6 +82,7 @@ export async function getThreadById(threadId: string): Promise<any | null> {
     return null;
   }
 }
+
 
 
 // export async function getThreadsByCategory(category: string): Promise<Thread[]> {
