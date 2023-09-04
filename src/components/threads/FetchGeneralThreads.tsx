@@ -7,7 +7,7 @@ import { Thread } from '../../types';
 
 
 export const FetchGeneralThreads = () => {
- 
+
   const dispatch = useDispatch(); // Get the dispatch function
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const FetchGeneralThreads = () => {
         const threadsData = await threadsService.fetchGeneralThreads(); // Assuming this returns an array of products
 
         dispatch(setThreadsList(threadsData)); // Dispatch the action to update the Redux state
-        
+
       } catch (error) {
         // Handle error
       }
