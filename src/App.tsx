@@ -8,6 +8,7 @@ import Qna from './pages/qna/Qna';
 import General from './pages/general/General'
 import AddThread from './pages/addThread/AddThread';
 import Thread from './pages/thread/Thread';
+import EditThread from './pages/editThread/EditThread'
 
 const App = () => {
 
@@ -36,6 +37,10 @@ const App = () => {
         path: 'add-thread',
         element: <AddThread />,
       },     
+      {
+        path: 'edit-thread/:threadId', 
+        element: <EditThread />,
+      },
       {
         path: 'thread/:category/:id',
         element: <Thread />,
