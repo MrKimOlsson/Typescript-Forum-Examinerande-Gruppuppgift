@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-
-
-
-
+import './CommentForm.css'
 
 const CommentForm: React.FC<{ onCommentSubmit: (comment: string) => void }> = ({ onCommentSubmit }) => {
   const [commentText, setCommentText] = useState('');
@@ -12,19 +9,19 @@ const CommentForm: React.FC<{ onCommentSubmit: (comment: string) => void }> = ({
 
     if (commentText.trim() !== '') {
       onCommentSubmit(commentText);
-      setCommentText(''); 
+      setCommentText('');
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <textarea
-          value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
-          placeholder="Write your comment here..."/>
-      </div>
-      <button type="submit">Submit Comment</button>
+    <form className="forum-form" onSubmit={handleSubmit}>
+      <textarea
+        className="forum-textarea"
+        value={commentText}
+        onChange={(e) => setCommentText(e.target.value)}
+        placeholder="Write your comment here..."
+      />
+      <button className="forum-button" type="submit">Submit Comment</button>
     </form>
   );
 }
