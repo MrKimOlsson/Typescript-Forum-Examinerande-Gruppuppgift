@@ -13,6 +13,7 @@ import { AppDispatch } from '../../store';
 
 
 
+
 const Thread = () => {
   const { id, category } = useParams<{ id: string; category: string }>();
   const dispatch = useDispatch<AppDispatch>();
@@ -22,11 +23,13 @@ const Thread = () => {
 
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
+
+
+
   useEffect(() => {
     if (id) {
       dispatch(fetchCommentsByThreadId(parseInt(id, 10))); 
     }
-
   }, [id, dispatch]);
 
 
