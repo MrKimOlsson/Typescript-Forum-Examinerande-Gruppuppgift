@@ -22,6 +22,7 @@ code {
 }
 
 .wrapper {
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,19 +39,49 @@ code {
   padding-top: 3rem;
 }
 
-.threadEven {
+.newThread{
   display: flex;
   justify-content: center;
-  background-color: #ffffff;
+  align-items: center;
+  gap: 1rem;
   width: 100%;
+}
+
+.even {
+  background-color: #ffffff;
   border: 1px solid #ccc;
 }
 
-.threadOdd {
+.threadCategory {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  background-color: #f0f0f0;
+  align-items: center;
   width: 100%;
+}
+
+.threadCategory p {
+  margin-bottom: 2rem;
+}
+.threadCategory h3 {
+  margin-bottom: 0;
+}
+
+.plus-icon {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: 1px solid #707070;
+}
+
+.odd {
+  background-color: #f0f0f0;
 }
 
 .card {
