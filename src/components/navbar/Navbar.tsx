@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-// import Logo from '../../assets/logo.png'
+import { NavLink, Link } from 'react-router-dom';
+import Logo from '../../assets/logo.png'
 import './navbar.css'
 
 const Navbar = () => {
@@ -33,25 +33,21 @@ const Navbar = () => {
      <nav className='navbar'>
 
             <menu className="menu-desktop">
-              {/* <Link to='/' ><img src={Logo} alt="logo" className="link logo-img"/></Link> */}
-              <li><NavLink className='nav-link' to='/'>Home</NavLink></li>
-              <li><NavLink className='nav-link' to='/general'>General</NavLink></li>
-              <li><NavLink className='nav-link' to='/qna'>QNA</NavLink></li>
+              <Link to='/' ><img src={Logo} alt="logo" className="link logo-img"/></Link>
+              {/* <li><NavLink className='nav-link' to='/'>Home</NavLink></li> */}
               <li><NavLink className='nav-link' to='/add-thread'>Add thread</NavLink></li>
             </menu>
    
             {/*-- Hidden menu --*/}
             <menu className="menuMobile">
-                <li><NavLink className="menuItem" to="/">Home</NavLink></li>
-                <li><NavLink className="menuItem" to='/general'>General</NavLink></li>
-                <li><NavLink className="menuItem" to='/qna'>QNA</NavLink></li>
+                <li><NavLink className="menuItem" to="/">The Forum</NavLink></li>
                 <li><NavLink className="menuItem" to='/add-thread'>Add thread</NavLink></li>
             </menu>
 
             {/*-- Hamburger --*/}
             <div>
-            {/* <Link to='/' ><img src={Logo} alt="logo" className="link logo-img-mobile"/></Link>
-            <Link to='/' ><img src={Logo} alt="logo" className="menu-logo logo-img"/></Link> */}
+            {/* <Link to='/' ><img src={Logo} alt="logo" className="link logo-img-mobile"/></Link> */}
+            <Link to='/' ><img src={Logo} alt="logo" className="menu-logo logo-img"/></Link>
             </div>
             <div className="hamburger">
                 <div className="bar1"></div>

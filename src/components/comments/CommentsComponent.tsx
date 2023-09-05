@@ -51,26 +51,6 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
         };
 
 
-//       const handleCommentSubmit = async (commentText: string) => {
-//     try {
-//       const comment: Omit<Comment, 'id'> = {
-//         thread: parseInt(id),
-//         creator: {
-//           id: 1,
-//           name: "Anonymous",
-//           userName: "AnonymousUser"
-//         },
-//         content: commentText
-//       };
-
-//       const newComment = await addComment(id, comment);
-//       dispatch(addCommentToSlice({ ...newComment }));
-//       console.log('Comment added successfully');
-//     } catch (error) {
-//       console.error('Error adding comment:', error);
-//     }
-//   };
-
   const handleDeleteComment = async (id: number) => {
     try {
       await dispatch(deleteCommentAsync(id));
