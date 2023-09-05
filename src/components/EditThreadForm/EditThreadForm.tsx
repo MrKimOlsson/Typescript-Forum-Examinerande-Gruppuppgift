@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import '../../index.css'
 import { Thread, ThreadCategory, User } from '../../types';
 
+type GetThreadResponse = Thread | null;
+type GetThreadError = Error;
+
 const EditThreadForm: React.FC = () => {
   const [user, setUser] = useState<string>('')
   const [category, setCategory] = useState<ThreadCategory>()
@@ -35,7 +38,7 @@ const EditThreadForm: React.FC = () => {
   useEffect(() => {
     if (threadId) {
       getThreadById(threadId)
-        .then((response) => {
+        .then((response: GetThreadResponse) => {
           if (response) {
             console.log(response);
             setThread(response);
@@ -53,7 +56,7 @@ const EditThreadForm: React.FC = () => {
             console.log('Tråden hittades inte.');
           }
         })
-        .catch((error) => {
+        .catch((error: GetThreadError) => {
             // Hantera fel här
           console.error('Fel vid hämtning av tråd:', error);
         });
