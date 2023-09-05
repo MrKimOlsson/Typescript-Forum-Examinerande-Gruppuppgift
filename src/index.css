@@ -75,7 +75,11 @@ code {
 }
 
 .content {
-  padding: 0rem 10rem 2rem;
+  padding: 0rem 20rem;
+}
+
+.content, a {
+  text-decoration: none;
 }
 
 .titleWrapper {
@@ -94,11 +98,62 @@ code {
 
 }
 
-.btn-delete {
-  margin-bottom: 1rem;
-}
-
 .commentForm {
   border-top: 1px solid #ccc;
   padding-top: 2rem;
+}
+
+.btn-delete {
+  background-color: #ccc;
+  padding: .2rem .5rem;
+  border-radius: 3px;
+  border: 1px solid #707070;
+  height: 2rem;
+}
+
+.threadTitle {
+  display: flex;
+  font-size: 2.5rem;
+  text-decoration: none;
+  margin: 2rem 0rem 2rem;
+}
+
+.threadDescription {
+  font-size: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.threadCreator {
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  color: #00000081;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  color: #00000081;
+}
+
+.threadButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.edit-link {
+  background-color: #ccc;
+  padding: .2rem .5rem;
+  border-radius: 3px;
+  border: 1px solid #707070;
+}
+
+.commentContent {
+  font-size: 1.2rem;
+}
+
+.commentCreator{
+  display: flex;
+  justify-content: flex-end;
 }

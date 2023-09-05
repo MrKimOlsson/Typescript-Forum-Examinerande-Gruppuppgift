@@ -75,17 +75,15 @@ const Thread = () => {
   return (
     <div className='wrapper'>
       <div className='thread'>
-        <div className='content'>
-          <h4>Title: {thread.title}</h4>
-          <p>Thread description: {thread.description}</p>
-          <p>Category{thread.category}</p>
-          <p>Creation date{thread.creationDate}</p>
-          <p>Thread ID: {thread.id}</p>
+      <div className='content'>
+          <div className='row'>
+            <p>Category: {thread.category}</p>
+            <p>Creation date: {thread.creationDate}</p>
+          </div>
+          <h4 className='threadTitle'>{thread.title}</h4>
+          <p className='threadDescription'>{thread.description}</p>
+          <p className='threadCreator'>Creator: {thread.creator.userName}</p>
           <br />
-          <p><strong>Thread Creator</strong></p>
-          <p>Name: {thread.creator.name}</p>
-          <p>Username: {thread.creator.userName}</p>
-          <p>ID: {thread.creator.id}</p>
         </div>
       </div>
 
