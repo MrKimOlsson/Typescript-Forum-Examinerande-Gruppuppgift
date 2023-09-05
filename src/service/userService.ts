@@ -29,7 +29,6 @@ export async function getUserByName(name: string): Promise<User | null> {
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
-      // Assuming there's only one user with a given name, you can access it like this:
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
       return userData as User;

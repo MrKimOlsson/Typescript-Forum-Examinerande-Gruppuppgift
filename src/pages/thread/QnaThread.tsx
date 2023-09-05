@@ -5,11 +5,20 @@ import { useParams } from 'react-router-dom';
 
 const QnaThread = () => {
 
+<<<<<<< HEAD
   type ParamProps = {
     id: string;
   }
 
     const { id } = useParams<ParamProps>(); 
+=======
+  type RouteParams = {
+    id: string;
+  };
+  
+  const { id } = useParams<RouteParams>();
+
+>>>>>>> 9f8e1ba37aac16dd434b522baf409c925e106f8c
 
     const { data: thread, error, loading } = useDoc('threads', id || '');
   if (id === undefined) {
