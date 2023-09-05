@@ -4,7 +4,7 @@ export interface User {
 	userName: string;
 }
 
-type ThreadCategory = "THREAD" | "QNA"
+export type ThreadCategory = "THREAD" | "QNA" | "NEWS" | "SPORT" | "POLITICS" | "OTHER" | "GENERAL";
 
 export interface Thread {
   	id: number;
@@ -27,3 +27,4 @@ export interface Comment {
 	content: string;
 	creator: User
 }
+

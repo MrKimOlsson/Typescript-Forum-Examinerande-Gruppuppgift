@@ -14,16 +14,16 @@ const useDoc = (collection: string, id: string) => {
 
   useEffect(() => {
     const getDocAsync = async () => {
-      setLoading(true);
+      setLoading(Boolean(true));
       const docRef = doc(db, collection, id);
       const docSnapshot = await getDoc(docRef);
 
       if (!docSnapshot.exists()) {
-        setLoading(false);
+        setLoading(Boolean(false));
         setError('Could not find that document');
       } else {
         setData({ id: docSnapshot.id, ...docSnapshot.data() } as DocData);
-        setLoading(false);
+        setLoading(Boolean(false));
       }
     };
 

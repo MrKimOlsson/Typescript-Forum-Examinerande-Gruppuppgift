@@ -1,22 +1,13 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User } from '../../types'
+import { Thread, User, ThreadCategory } from '../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../service/threadsService'
 import { useNavigate } from 'react-router-dom'
-import { addUser, getUserById, getUserByName } from '../../service/userService'
-
-
-// type AddThreadFormProps = {
-//     thread: Thread
-// }
-
-
-
+import { addUser, getUserByName } from '../../service/userService'
 
 const AddThreadForm = () => {
     const [thread, setThread] = useState<Thread[]>([])
-
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('general')
@@ -28,28 +19,26 @@ const AddThreadForm = () => {
     const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const min = 1;
-        const max = 1000000;
-        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-
+        const min: number = 1;
+        const max: number = 1000000;
+        const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
         const userObject: User = {
             id: randomNumber,
             name: user,
-            userName: user,
+            userName: user + randomNumber,
         }
 
             addThread({
                 id: randomNumber,
                 title,
                 description,
-                category: category as any,
+                category: category as ThreadCategory,
                 creator: userObject,
                 creationDate: new Date().toISOString(),
             })
 
             const userByName = await getUserByName(userObject.name)
-            console.log(userByName)
             if(userByName) {
                 console.log('user already exist')
                 navigate('/')
@@ -58,10 +47,6 @@ const AddThreadForm = () => {
                 console.log('user does not exist')
                 addUser(userObject)
             }
-
-        // addUser(userObject)
-
-        console.log('added new thread' + thread)
     }
 
 
@@ -97,7 +82,6 @@ const AddThreadForm = () => {
              id='category'
              value={category}
              onChange={(e) => setCategory(e.target.value)}
-             
              >
                 <option value="general">General</option>
                 <option value="qna">QNA</option>
@@ -118,7 +102,6 @@ const AddThreadForm = () => {
              id='user' 
              />
         </div>
-
         <button type='submit'>Publish</button>
     </form>
   )

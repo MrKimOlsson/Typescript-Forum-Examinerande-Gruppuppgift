@@ -5,21 +5,43 @@ import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/AddCommentForm/CommentForm';
 import { addComment } from '../../service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
+import { useState, useEffect } from 'react';
+import './Thread.css'
+import { ThreadCategory } from '../../types'
 import { Comment, Thread as ThreadType } from '../../types';
-import { useEffect } from 'react';
 import { AppDispatch, RootState } from '../../store';
 import CommentsComponent from '../../components/comments/CommentsComponent';
+
+
+type ThreadProps = {
+  id: string
+  category: ThreadCategory
+}
+
+type CommentsState = {
+  comments: Comment[],
+  loading: boolean,
+}
+
+type RootStateProps = {
+  comments: CommentsState;
+};
+
+type ErrorProps = {
+  message: string
+}
+
 
 function isValidComment(comment: any): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
 
 const Thread = () => {
-  const { id, category } = useParams<{ id: string; category: string }>();
+  const { id, category } = useParams<ThreadProps>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const comments = useSelector((state: RootState) => state.comments.comments);
-  const commentsLoading = useSelector((state: RootState) => state.comments.loading);
+  const comments = useSelector((state: RootStateProps) => state.comments.comments);
+  const commentsLoading = useSelector((state: RootStateProps) => state.comments.loading);
 
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
@@ -28,6 +50,18 @@ const Thread = () => {
       dispatch(fetchCommentsByThreadId(parseInt(id, 10)));
     }
   }, [id, dispatch]);
+
+  if(loading) {
+    return <Loader />
+  }
+
+  if(error) {
+    return <p>Error: {error}</p>
+  }
+
+  if(thread) {
+    const { title, description, creationDate, creator } = thread;
+  }
 
   if (id === undefined) {
     console.error('Failed to get the thread');
