@@ -44,9 +44,10 @@ const AddThreadForm = () => {
                 navigate('/')
                 return
             } else {
-                console.log('user does not exist')
+                console.log('user does not exist, added user with id: ' + randomNumber)
                 addUser(userObject)
             }
+            navigate('/')
     }
 
 
