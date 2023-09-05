@@ -64,10 +64,11 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     <>
     <div key={comment.id} className="comment-card" style={cardStyle}>
         <div className='content'>
-            <p>User: {comment.creator.name}</p>
-            <p>{comment.content}</p>
-            <p>{comment.id}</p>
-            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+            <p className='commentContent'>{comment.content}</p>
+            <div className='row'>
+            <p className="commentCreator">User: {comment.creator.name}</p>
+            <button onClick={() => handleDeleteComment(comment.id)}className="btn-delete">Delete</button>
+            </div>
         </div>
     </div>
     </>
