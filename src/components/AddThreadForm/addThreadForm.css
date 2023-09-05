@@ -13,6 +13,7 @@
 .input-group {
     display: flex;
     flex-direction: column;
+    
 }
 
 .input-group label {
@@ -26,6 +27,7 @@
     border-radius: .5rem;
     border: 0;
     padding: .5rem;
+    border: 1px solid #ccc;
 }
 
 .input-group input:focus {
@@ -37,6 +39,7 @@
     border-radius: .5rem;
     resize: none;
     padding-block: .5rem;  
+    border: 1px solid #ccc;
 }
 
 .form-textarea:focus {
@@ -47,6 +50,7 @@ select {
     border: 0;
     padding-block: .5rem;
     border-radius: .5rem;
+    border: 1px solid #ccc;
 }
 
 select:focus {
