@@ -30,6 +30,13 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f0f0f0',
   };
 
+  const descriptionStyle = {
+    maxHeight: '95px',
+    overflow: 'hidden',
+    opacity: 0.7,
+    color: 'black',
+  };
+
   return (
     <div className='thread' style={cardStyle}>
       <Link to={`/thread/${thread.category}/${thread.id}`}>
@@ -39,7 +46,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
             <p>Creation date: {thread.creationDate}</p>
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
-          <p className='threadDescription'>{thread.description}</p>
+          <p className='threadDescription' style={descriptionStyle}>{thread.description}</p>
           <p className='threadCreator'>Creator: {thread.creator.userName}</p>
           <br />
         </div>
