@@ -13,6 +13,23 @@ export async function addThread(thread: Thread): Promise<void> {
   }
 }
 
+// Experimental dynamic fetch
+async function fetchThreads(category: string): Promise<Thread[]> {
+  try {
+    const ThreadsCollectionRef = collection(db, category+'threads');
+    const threadsSnapshot = await getDocs(ThreadsCollectionRef);
+    const threads: Thread[] = [];
+    threadsSnapshot.forEach((doc) => {
+      threads.push(doc.data() as Thread);
+    });
+
+    return threads;
+  } catch (error) {
+    console.error('Error fetching qna threads:', error);
+    return [];
+  }
+}
+
 async function fetchGeneralThreads(): Promise<Thread[]> {
   try {
     const GeneralThreadsCollectionRef = collection(db, 'generalthreads');
@@ -92,7 +109,8 @@ const threadsSevice = {
   fetchQnaThreads,
   deleteThread,
   updateThread,
-  getThreadById
+  getThreadById,
+  fetchThreads
 }
 
 export default threadsSevice

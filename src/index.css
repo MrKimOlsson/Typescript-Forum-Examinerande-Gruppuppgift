@@ -31,12 +31,26 @@ code {
 }
 
 .threadWrapper {
-  /* background-color: #ffffff; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 3rem;
+}
+
+.threadEven {
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.threadOdd {
+  display: flex;
+  justify-content: center;
+  background-color: #f0f0f0;
+  width: 100%;
 }
 
 .card {
