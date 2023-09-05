@@ -71,11 +71,11 @@ const Thread = () => {
       console.error('Error deleting comment:', error);
     }
   };
-  
+
   return (
     <div className='wrapper'>
       <div className='thread'>
-      <div className='content'>
+        <div className='content'>
           <div className='row'>
             <p>Category: {thread.category}</p>
             <p>Creation date: {thread.creationDate}</p>
@@ -88,21 +88,22 @@ const Thread = () => {
       </div>
 
       <div className='titleWrapper'>
-      <h4>Comments:</h4>
+        <h4>Comments:</h4>
       </div>
       <div className='thread'>
         {commentsLoading && <Loader />}
-          {comments.length > 0 ? (
-          comments.map((comment: Comment, index: number) => (
-            <CommentsComponent key={comment.id} comment={comment} index={index} /> // Pass the 'index' prop
-            ))
-          ) : (
-            <h2>No threads to show</h2>
-          )}          
+        {comments.length > 0 ? (
+          comments.filter(isValidComment).map((comment: Comment, index: number) => (
+            <CommentsComponent key={comment.id} comment={comment} index={index} />
+          ))
+        ) : (
+          <h2>No threads to show</h2>
+        )}
+
       </div>
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
-   
+
   );
 };
 
