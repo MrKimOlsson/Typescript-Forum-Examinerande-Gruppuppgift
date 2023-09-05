@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../service/threadsService';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import '../../index.css'
 import { Thread, ThreadCategory, User } from '../../types';
+import '../../index.css'
+import '../AddThreadForm/addThreadForm.css'
 
 type GetThreadResponse = Thread | null;
 type GetThreadError = Error;
@@ -60,45 +61,8 @@ const EditThreadForm: React.FC = () => {
         .catch((error: GetThreadError) => {
             // Hantera fel här
           console.error('Fel vid hämtning av tråd:', error);
-=======
-// import '../../index.css'
-import '../AddThreadForm/addThreadForm.css'
-
-const EditThreadForm: React.FC = () => {
-    const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
-    console.log(category)
-    console.log(threadId)
-    const [thread, setThread] = useState<any>(null);
-    const [newThreadInfo, setNewThreadInfo] = useState<any>({
-        title: '',
-        description: '',
-        category: '',
-    });
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (threadId) {
-            getThreadById(threadId, category)
-                .then((response) => {
-                    if (response) {
-                        console.log(response);
-                        setThread(response);
-
-                        // Uppdatera newThreadInfo med befintlig information från tråden
-                        setNewThreadInfo({
-                            title: response.title,
-                            description: response.description,
-                            category: response.category,
-                        });
-                    } else {
-                        console.log('Tråden hittades inte.');
-                    }
-                })
-                .catch((error) => {
-                    // Hantera fel här
-                    console.error('Fel vid hämtning av tråd:', error);
-                });
-        }
+        });
+    }
     }, [threadId]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -106,16 +70,15 @@ const EditThreadForm: React.FC = () => {
         setNewThreadInfo({
             ...newThreadInfo,
             [name]: value,
->>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
         });
-    };
+//     };
 
-
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (threadId) {
+        if (thread && threadId) {
             await updateThread(threadId, thread, newThreadInfo);
 
             navigate('/general')
@@ -124,6 +87,7 @@ const EditThreadForm: React.FC = () => {
             console.error('Invalid threadId');
         }
     };
+
 
     return (
         <div className='wrapper'  >
@@ -181,3 +145,49 @@ const EditThreadForm: React.FC = () => {
 };
 
 export default EditThreadForm;
+
+
+
+
+
+
+
+// import '../../index.css'
+// import '../AddThreadForm/addThreadForm.css'
+
+// const EditThreadForm: React.FC = () => {
+//     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
+//     console.log(category)
+//     console.log(threadId)
+//     const [thread, setThread] = useState<any>(null);
+//     const [newThreadInfo, setNewThreadInfo] = useState<any>({
+//         title: '',
+//         description: '',
+//         category: '',
+//     });
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         if (threadId) {
+//             getThreadById(threadId, category)
+//                 .then((response) => {
+//                     if (response) {
+//                         console.log(response);
+//                         setThread(response);
+
+//                         // Uppdatera newThreadInfo med befintlig information från tråden
+//                         setNewThreadInfo({
+//                             title: response.title,
+//                             description: response.description,
+//                             category: response.category,
+//                         });
+//                     } else {
+//                         console.log('Tråden hittades inte.');
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     // Hantera fel här
+//                     console.error('Fel vid hämtning av tråd:', error);
+//                 });
+//         }
+//     }, [threadId]);

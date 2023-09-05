@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/AddCommentForm/CommentForm';
 import { addComment } from '../../service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
-<<<<<<< HEAD
-import { Comment } from '../../types';
 import { useState, useEffect } from 'react';
 import './Thread.css'
-import { AppDispatch } from '../../store';
 import { ThreadCategory } from '../../types'
+import { Comment, Thread as ThreadType } from '../../types';
+import { AppDispatch, RootState } from '../../store';
+import CommentsComponent from '../../components/comments/CommentsComponent';
 
 
 type ThreadProps = {
@@ -23,29 +23,25 @@ type CommentsState = {
   loading: boolean,
 }
 
-type RootState = {
+type RootStateProps = {
   comments: CommentsState;
 };
 
 type ErrorProps = {
   message: string
-=======
-import { Comment, Thread as ThreadType } from '../../types';
-import { useEffect } from 'react';
-import { AppDispatch, RootState } from '../../store';
-import CommentsComponent from '../../components/comments/CommentsComponent';
+}
+
 
 function isValidComment(comment: any): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
->>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
 }
 
 const Thread = () => {
   const { id, category } = useParams<ThreadProps>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const comments = useSelector((state: RootState) => state.comments.comments);
-  const commentsLoading = useSelector((state: RootState) => state.comments.loading);
+  const comments = useSelector((state: RootStateProps) => state.comments.comments);
+  const commentsLoading = useSelector((state: RootStateProps) => state.comments.loading);
 
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
@@ -55,7 +51,6 @@ const Thread = () => {
     }
   }, [id, dispatch]);
 
-<<<<<<< HEAD
   if(loading) {
     return <Loader />
   }
@@ -68,8 +63,6 @@ const Thread = () => {
     const { title, description, creationDate, creator } = thread;
   }
 
-=======
->>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
   if (id === undefined) {
     console.error('Failed to get the thread');
     return <p>Thread ID is missing</p>;
@@ -87,11 +80,7 @@ const Thread = () => {
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const comment: Omit<Comment, 'id'> = {
-<<<<<<< HEAD
-        thread: parseInt(id, 10),
-=======
         thread: Number(thread.id),
->>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
         creator: {
           id: 1,
           name: "Anonymous",
