@@ -121,3 +121,49 @@ const EditThreadForm: React.FC = () => {
 };
 
 export default EditThreadForm;
+
+
+
+
+
+
+
+// import '../../index.css'
+// import '../AddThreadForm/addThreadForm.css'
+
+// const EditThreadForm: React.FC = () => {
+//     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
+//     console.log(category)
+//     console.log(threadId)
+//     const [thread, setThread] = useState<any>(null);
+//     const [newThreadInfo, setNewThreadInfo] = useState<any>({
+//         title: '',
+//         description: '',
+//         category: '',
+//     });
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         if (threadId) {
+//             getThreadById(threadId, category)
+//                 .then((response) => {
+//                     if (response) {
+//                         console.log(response);
+//                         setThread(response);
+
+//                         // Uppdatera newThreadInfo med befintlig information från tråden
+//                         setNewThreadInfo({
+//                             title: response.title,
+//                             description: response.description,
+//                             category: response.category,
+//                         });
+//                     } else {
+//                         console.log('Tråden hittades inte.');
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     // Hantera fel här
+//                     console.error('Fel vid hämtning av tråd:', error);
+//                 });
+//         }
+//     }, [threadId]);
