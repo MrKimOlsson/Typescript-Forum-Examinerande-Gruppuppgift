@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../service/threadsService';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import '../../index.css'
 import { Thread, ThreadCategory, User } from '../../types';
 
@@ -59,77 +60,124 @@ const EditThreadForm: React.FC = () => {
         .catch((error: GetThreadError) => {
             // Hantera fel här
           console.error('Fel vid hämtning av tråd:', error);
-        });
-    }
-  }, [threadId]);
+=======
+// import '../../index.css'
+import '../AddThreadForm/addThreadForm.css'
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setNewThreadInfo({
-      ...newThreadInfo,
-      [name]: value,
+const EditThreadForm: React.FC = () => {
+    const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
+    console.log(category)
+    console.log(threadId)
+    const [thread, setThread] = useState<any>(null);
+    const [newThreadInfo, setNewThreadInfo] = useState<any>({
+        title: '',
+        description: '',
+        category: '',
     });
-  };
+    const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    if (threadId) {
-      await updateThread(threadId, newThreadInfo);
+    useEffect(() => {
+        if (threadId) {
+            getThreadById(threadId, category)
+                .then((response) => {
+                    if (response) {
+                        console.log(response);
+                        setThread(response);
 
-      navigate('/general')
-    //   navigate(`/general/${threadId}`);
-    } else {
-      console.error('Invalid threadId');
-    }
-  };
-  
-  return (
-    <div className='wrapper'>
-      {thread ? (
-        // Om tråden finns, visa formuläret med informationen som placeholder
-        <div>
-          <h1>Edit Thread</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="title">Title:</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={newThreadInfo.title}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="description">Description:</label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                value={newThreadInfo.description}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="category">Category:</label>
-              <input
-                type="text"
-                id="category"
-                name="category"
-                value={newThreadInfo.category}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button type="submit">Update Thread</button>
-          </form>
+                        // Uppdatera newThreadInfo med befintlig information från tråden
+                        setNewThreadInfo({
+                            title: response.title,
+                            description: response.description,
+                            category: response.category,
+                        });
+                    } else {
+                        console.log('Tråden hittades inte.');
+                    }
+                })
+                .catch((error) => {
+                    // Hantera fel här
+                    console.error('Fel vid hämtning av tråd:', error);
+                });
+        }
+    }, [threadId]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setNewThreadInfo({
+            ...newThreadInfo,
+            [name]: value,
+>>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
+        });
+    };
+
+
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (threadId) {
+            await updateThread(threadId, thread, newThreadInfo);
+
+            navigate('/general')
+            //   navigate(`/general/${threadId}`);
+        } else {
+            console.error('Invalid threadId');
+        }
+    };
+
+    return (
+        <div className='wrapper'  >
+            {thread ? (
+                // Om tråden finns, visa formuläret med informationen som placeholder
+                <div>
+                    <h1>Edit Thread</h1>
+                    <form className='thread-form' id='editFormWrapper' onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <label className='form-label' htmlFor="title">Title:</label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                value={newThreadInfo.title}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label className='form-label' htmlFor="description">Description:</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                value={newThreadInfo.description}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label className='form-label' htmlFor="category">Category:</label>
+                            <select
+                                required
+                                className="form-select"
+                                id="category"
+                                name="category"
+                                value={newThreadInfo.category}
+                                onChange={handleInputChange}
+                            >
+                                <option value="general">General</option>
+                                <option value="qna">QNA</option>
+                                <option value="news">News</option>
+                                <option value="sports">Sports</option>
+                                <option value="politics">Politics</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit">Update Thread</button>
+                    </form>
+                </div>
+            ) : (
+                // Om tråden inte hittades, visa ett felmeddelande
+                <p>Tråden hittades inte.</p>
+            )}
         </div>
-      ) : (
-        // Om tråden inte hittades, visa ett felmeddelande
-        <p>Tråden hittades inte.</p>
-      )}
-    </div>
-  );
+    );
 };
 
 export default EditThreadForm;

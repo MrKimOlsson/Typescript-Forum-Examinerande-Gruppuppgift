@@ -1,0 +1,36 @@
+/* .threadTitle {
+    display: flex;
+    font-size: 2.5rem;
+    text-decoration: none;
+    margin-top: 0rem;
+}
+
+.threadDescription {
+    font-size: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.threadCreator {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    color: #00000081;
+}
+
+.threadButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.edit-link {
+    background-color: #ccc;
+    padding: .2rem .5rem;
+    border-radius: 3px;
+    border: 1px solid #707070;
+} */

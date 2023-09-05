@@ -3,8 +3,9 @@ import useDoc from '../../hooks/useDoc';
 import Loader from '../../components/loader/Loader';
 import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/AddCommentForm/CommentForm';
-import { addComment, getCommentsByThreadId, deleteComment } from '../../service/commentsService';
+import { addComment } from '../../service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
+<<<<<<< HEAD
 import { Comment } from '../../types';
 import { useState, useEffect } from 'react';
 import './Thread.css'
@@ -28,6 +29,15 @@ type RootState = {
 
 type ErrorProps = {
   message: string
+=======
+import { Comment, Thread as ThreadType } from '../../types';
+import { useEffect } from 'react';
+import { AppDispatch, RootState } from '../../store';
+import CommentsComponent from '../../components/comments/CommentsComponent';
+
+function isValidComment(comment: any): comment is Comment {
+  return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
+>>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
 }
 
 const Thread = () => {
@@ -45,6 +55,7 @@ const Thread = () => {
     }
   }, [id, dispatch]);
 
+<<<<<<< HEAD
   if(loading) {
     return <Loader />
   }
@@ -57,6 +68,8 @@ const Thread = () => {
     const { title, description, creationDate, creator } = thread;
   }
 
+=======
+>>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
   if (id === undefined) {
     console.error('Failed to get the thread');
     return <p>Thread ID is missing</p>;
@@ -74,7 +87,11 @@ const Thread = () => {
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const comment: Omit<Comment, 'id'> = {
+<<<<<<< HEAD
         thread: parseInt(id, 10),
+=======
+        thread: Number(thread.id),
+>>>>>>> 95e08449f9eb076cfa47374b83f7d06b39b1562d
         creator: {
           id: 1,
           name: "Anonymous",
@@ -91,46 +108,47 @@ const Thread = () => {
     }
   };
 
-  const handleDeleteComment = async (id: number) => {
+  const handleDeleteComment = async (commentId: number) => {
     try {
-      await dispatch(deleteCommentAsync(id));
+      await dispatch(deleteCommentAsync(commentId));
       console.log('Comment deleted successfully');
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
   };
-
-
+  
   return (
     <div className='wrapper'>
       <div className='thread'>
-        <h4>Title: {thread.title}</h4>
-        <p>Thread description: {thread.description}</p>
-        <p>Category{thread.category}</p>
-        <p>Creation date{thread.creationDate}</p>
-        <p>Thread ID: {thread.id}</p>
-        <br />
-        <p><strong>Thread Creator</strong></p>
-        <p>Name: {thread.creator.name}</p>
-        <p>Username: {thread.creator.userName}</p>
-        <p>ID: {thread.creator.id}</p>
+      <div className='content'>
+          <div className='row'>
+            <p>Category: {thread.category}</p>
+            <p>Creation date: {thread.creationDate}</p>
+          </div>
+          <h4 className='threadTitle'>{thread.title}</h4>
+          <p className='threadDescription'>{thread.description}</p>
+          <p className='threadCreator'>Creator: {thread.creator.userName}</p>
+          <br />
+        </div>
       </div>
 
+      <div className='titleWrapper'>
+      <h4>Comments:</h4>
+      </div>
       <div className='thread'>
-        <h4>Comments:</h4>
         {commentsLoading && <Loader />}
-        {comments.map((comment: Comment) => (
-          <div key={comment.id} className="comment-card">
-            <p>User: {comment.creator.name}</p>
-            <p>{comment.content}</p>
-            <p>{comment.id}</p>
-            <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-          </div>
-        ))}
+          {comments.length > 0 ? (
+          comments.map((comment: Comment, index: number) => (
+            <CommentsComponent key={comment.id} comment={comment} index={index} /> // Pass the 'index' prop
+            ))
+          ) : (
+            <h2>No threads to show</h2>
+          )}          
       </div>
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
+   
   );
-}
+};
 
-export default Thread
+export default Thread;
