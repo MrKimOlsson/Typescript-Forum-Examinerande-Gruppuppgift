@@ -9,29 +9,53 @@ import { Comment } from '../../types';
 import { useState, useEffect } from 'react';
 import './Thread.css'
 import { AppDispatch } from '../../store';
+import { ThreadCategory } from '../../types'
 
 
+type ThreadProps = {
+  id: string
+  category: ThreadCategory
+}
 
+type CommentsState = {
+  comments: Comment[],
+  loading: boolean,
+}
 
+type RootState = {
+  comments: CommentsState;
+};
+
+type ErrorProps = {
+  message: string
+}
 
 const Thread = () => {
-  const { id, category } = useParams<{ id: string; category: string }>();
+  const { id, category } = useParams<ThreadProps>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const comments = useSelector((state: any) => state.comments.comments);
-  const commentsLoading = useSelector((state: any) => state.comments.loading);
+  const comments = useSelector((state: RootState) => state.comments.comments);
+  const commentsLoading = useSelector((state: RootState) => state.comments.loading);
 
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
-
-
-
   useEffect(() => {
     if (id) {
-      dispatch(fetchCommentsByThreadId(parseInt(id, 10))); 
+      dispatch(fetchCommentsByThreadId(parseInt(id, 10)));
     }
   }, [id, dispatch]);
 
+  if(loading) {
+    return <Loader />
+  }
+
+  if(error) {
+    return <p>Error: {error}</p>
+  }
+
+  if(thread) {
+    const { title, description, creationDate, creator } = thread;
+  }
 
   if (id === undefined) {
     console.error('Failed to get the thread');
@@ -50,7 +74,7 @@ const Thread = () => {
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const comment: Omit<Comment, 'id'> = {
-        thread: parseInt(id),
+        thread: parseInt(id, 10),
         creator: {
           id: 1,
           name: "Anonymous",
