@@ -1,4 +1,9 @@
 .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
 }
 
 .thread-form {
@@ -59,4 +64,6 @@ select:focus {
     cursor: pointer;
 }
 
-
+#editFormWrapper {
+    width: 50vw;
+}
