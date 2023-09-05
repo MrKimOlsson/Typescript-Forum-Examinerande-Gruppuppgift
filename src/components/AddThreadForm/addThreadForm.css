@@ -71,3 +71,10 @@ select:focus {
 #editFormWrapper {
     width: 50vw;
 }
+#description {
+    font-size: 16px;
+    margin-block: .5rem;
+    border-radius: .5rem;
+    border: 0;
+    padding: .5rem;
+}
