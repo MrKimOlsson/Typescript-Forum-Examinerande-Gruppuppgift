@@ -62,9 +62,9 @@ async function fetchQnaThreads(): Promise<Thread[]> {
   }
 }
 
-async function deleteThread(threadId: string): Promise<void> {
+async function deleteThread(threadId: string, thread: Thread): Promise<void> {
   try {
-    const threadRef = doc(db, 'generalthreads', threadId);
+    const threadRef = doc(db, thread.category+"threads", threadId);
     await deleteDoc(threadRef);
   } catch (error) {
     console.error('Error deleting thread:', error);
