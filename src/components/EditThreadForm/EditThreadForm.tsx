@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../service/threadsService';
 import { useNavigate } from 'react-router-dom';
-import '../../index.css'
+// import '../../index.css'
+import '../AddThreadForm/addThreadForm.css'
 
 const EditThreadForm: React.FC = () => {
   const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
@@ -41,13 +42,14 @@ const EditThreadForm: React.FC = () => {
     }
   }, [threadId]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewThreadInfo({
       ...newThreadInfo,
       [name]: value,
     });
   };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,14 +65,14 @@ const EditThreadForm: React.FC = () => {
   };
   
   return (
-    <div className='wrapper'>
+    <div className='wrapper'  >
       {thread ? (
         // Om tråden finns, visa formuläret med informationen som placeholder
         <div>
           <h1>Edit Thread</h1>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="title">Title:</label>
+          <form className='thread-form' id='editFormWrapper' onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label className='form-label' htmlFor="title">Title:</label>
               <input
                 type="text"
                 id="title"
@@ -79,8 +81,8 @@ const EditThreadForm: React.FC = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
-              <label htmlFor="description">Description:</label>
+            <div className="input-group">
+              <label className='form-label' htmlFor="description">Description:</label>
               <input
                 type="text"
                 id="description"
@@ -89,15 +91,23 @@ const EditThreadForm: React.FC = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
-              <label htmlFor="category">Category:</label>
-              <input
-                type="text"
-                id="category"
-                name="category"
-                value={newThreadInfo.category}
-                onChange={handleInputChange}
-              />
+            <div className="input-group">
+              <label className='form-label' htmlFor="category">Category:</label>
+              <select
+    required
+    className="form-select"
+    id="category"
+    name="category"
+    value={newThreadInfo.category}
+    onChange={handleInputChange}
+  >
+    <option value="general">General</option>
+    <option value="qna">QNA</option>
+    <option value="news">News</option>
+    <option value="sports">Sports</option>
+    <option value="politics">Politics</option>
+    <option value="other">Other</option>
+  </select>
             </div>
             <button type="submit">Update Thread</button>
           </form>
