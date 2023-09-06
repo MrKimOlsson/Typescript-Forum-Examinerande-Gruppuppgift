@@ -7,9 +7,15 @@ import { QNAThread } from '../types';
 
 const Qna = () => {
 
-  console.log('in the qna page!')
-
-  const qnaThreadsList = useSelector((state: RootState) => state.qna.qnaThreadsList);
+  // const qnaThreadsList = useSelector((state: RootState) => state.qna.qnaThreadsList as {qnaThreadsList: QNAThread[]}).qnaThreadsList);
+  // Use a type guard to check if qnaThreadsList is an array of QNAThread
+  const qnaThreadsList = useSelector((state: RootState) => {
+    if (Array.isArray(state.qna.qnaThreadsList)) {
+      return state.qna.qnaThreadsList as QNAThread[];
+    }
+    // Handle the case where qnaThreadsList is not an array of QNAThread
+    return [];
+  });
 
   return (
     <div className='threadWrapper'>

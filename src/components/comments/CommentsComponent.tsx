@@ -21,6 +21,7 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     //  const commentsLoading = useSelector((state: any) => state.comments.loading);
 
      const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
+     
 
     useEffect(() => {
         if (id) {

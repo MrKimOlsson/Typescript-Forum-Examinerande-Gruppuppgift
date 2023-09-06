@@ -3,7 +3,7 @@ import { Comment } from "../../types";
 
 const db = getFirestore();
 
-async function addComment(threadId: string, comment: Omit<Comment, 'id'>): Promise<Comment> {
+async function addComment(category: string | undefined, threadId: string, comment: Omit<Comment, 'id'>): Promise<Comment> {
   try {
     const newComment = {
       ...comment,
@@ -11,7 +11,7 @@ async function addComment(threadId: string, comment: Omit<Comment, 'id'>): Promi
       id: Date.now()
     };
     // check if thread is a q&a 
-    const threadDoc = doc(db, 'qnathreads', threadId)
+    const threadDoc = doc(db, category+'threads', threadId)
     const threadSnapshot = await getDoc(threadDoc);
 
     if (threadSnapshot.exists()) {
