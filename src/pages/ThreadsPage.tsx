@@ -83,7 +83,7 @@ const ThreadsPage = () => {
         content: commentText
       };
 
-      const newComment = await addComment(id, comment);
+      const newComment = await addComment(category, id, comment);
       dispatch(addCommentToSlice({ ...newComment }));
       console.log('Comment added successfully');
     } catch (error) {
