@@ -5,14 +5,10 @@ import './App.css'
 // Pages
 import Home from './pages/Home';
 import Qna from './pages/Qna';
-import News from './pages/News';
-import Sports from './pages/Sports';
-import Politics from './pages/Politics';
-import Other from './pages/Other';
-import General from './pages/General'
 import AddThread from './pages/AddThread';
 import ThreadsPage from './pages/ThreadsPage';
 import EditThread from './pages/EditThread'
+import ThreadCategory from './pages/ThreadCategory';
 
 const App = () => {
 
@@ -30,28 +26,12 @@ const App = () => {
         element: <Home />,
       },
       {
-        path: ':category',
-        element: <General />,
-      },
-      {
-        path: ':category',
+        path: 'qna',
         element: <Qna />,
       },
       {
         path: ':category',
-        element: <News />,
-      },
-      {
-        path: ':category',
-        element: <Sports />,
-      },
-      {
-        path: ':category',
-        element: <Politics />,
-      },
-      {
-        path: ':category',
-        element: <Other />,
+        element: <ThreadCategory />,
       },
       {
         path: 'add-thread',
