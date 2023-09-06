@@ -4,11 +4,11 @@ import Loader from '../components/loader/Loader';
 import { useParams } from 'react-router-dom';
 import CommentForm from '../components/forms/AddCommentForm/CommentForm';
 import { addComment } from '../store/service/commentsService';
-import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../store/slices/commentsSlice';
+import { fetchCommentsByThreadId, addComment as addCommentToSlice } from '../store/slices/commentsSlice';
 import { useEffect } from 'react';
 import { ThreadCategory } from '../types'
 import { Comment, Thread as ThreadType } from '../types';
-import { AppDispatch, RootState } from '../store';
+import { AppDispatch } from '../store';
 import CommentsComponent from '../components/comments/CommentsComponent';
 
 
@@ -26,9 +26,9 @@ type RootStateProps = {
   comments: CommentsState;
 };
 
-type ErrorProps = {
-  message: string
-}
+// type ErrorProps = {
+//   message: string
+// }
 
 
 function isValidComment(comment: any): comment is Comment {

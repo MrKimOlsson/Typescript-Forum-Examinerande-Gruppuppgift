@@ -1,5 +1,5 @@
 import { db } from "../../firebase/config"
-import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { Thread } from "../../types";
 
 export async function addThread(thread: Thread): Promise<void> {
