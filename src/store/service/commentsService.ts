@@ -8,7 +8,7 @@ async function addComment(category: string | undefined, threadId: string, commen
     const newComment = {
       ...comment,
       thread: parseInt(threadId, 10),
-      id: Date.now()
+      id: Date.now()  
     };
     // check if thread is a q&a 
     const threadDoc = doc(db, category+'threads', threadId)
@@ -37,7 +37,6 @@ async function addComment(category: string | undefined, threadId: string, commen
     throw error;
   }
 }
-
 
 async function getAllComments(): Promise<Comment[]> {
   try {
