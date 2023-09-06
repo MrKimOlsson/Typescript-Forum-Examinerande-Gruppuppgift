@@ -19,9 +19,9 @@ const initialState: ThreadsState = {
   loading: false,
 };
 
-interface Category {
-  category: string;
-}
+// interface Category {
+//   category: string;
+// }
 
 export const getThreads = createAsyncThunk(
   'threads/getAll',
