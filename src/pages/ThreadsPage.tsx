@@ -26,11 +26,6 @@ type RootStateProps = {
   comments: CommentsState;
 };
 
-// type ErrorProps = {
-//   message: string
-// }
-
-
 function isValidComment(comment: any): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
@@ -57,10 +52,6 @@ const ThreadsPage = () => {
   if(error) {
     return <p>Error: {error}</p>
   }
-
-  // if(thread) {
-  //   const { title, description, creationDate, creator } = thread;
-  // }
 
   if (id === undefined) {
     console.error('Failed to get the thread');

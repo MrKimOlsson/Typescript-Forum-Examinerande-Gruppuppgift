@@ -108,6 +108,17 @@ justify-content: flex-end;
 color: #00000081;
 }
 
+.isAnswered {
+    font-weight: 600;
+    color: rgb(0, 121, 8);
+}
+
+.bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* __________________________________________________________________________________________ */
 
 /* Add new thread */
