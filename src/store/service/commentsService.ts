@@ -8,28 +8,9 @@ async function addComment(threadId: string, comment: Omit<Comment, 'id'>): Promi
     const newComment = {
       ...comment,
       thread: parseInt(threadId, 10),
-      id: Date.now()
+      id: Date.now()  
     };
-    // check if thread is a q&a 
-    const threadDoc = doc(db, 'qnathreads', threadId)
-    const threadSnapshot = await getDoc(threadDoc);
-
-    if (threadSnapshot.exists()) {
-      const threadData = threadSnapshot.data();
-      let commentAnswerId = threadData.commentAnswerId || 0;
-
-      // Check if commentAnswerId should be changed
-      commentAnswerId += 1
-      
-      const updatedThread = {
-        ...threadData,
-        isAnswered: true,
-        commentAnswerId: commentAnswerId,
-        answerId: newComment.id 
-      };
-      await updateDoc(threadDoc, updatedThread);
-      await addDoc(collection(db, "comments"), newComment);
-    }
+    await addDoc(collection(db, "comments"), newComment);
     console.log("New comment added with Numeric ID:", newComment.id);
     return newComment;
   } catch (error) {
@@ -37,7 +18,6 @@ async function addComment(threadId: string, comment: Omit<Comment, 'id'>): Promi
     throw error;
   }
 }
-
 
 async function getAllComments(): Promise<Comment[]> {
   try {

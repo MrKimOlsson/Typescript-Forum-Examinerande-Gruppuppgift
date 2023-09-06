@@ -19,7 +19,6 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
   const handleDelete = async () => {
     try {
       await threadsService.deleteThread(String(thread.id) , thread);
-      // await threadsService.deleteThread(String(thread.id));
       console.log('Thread deleted successfully');
       dispatch(removeThread(String(thread.id)));
     } catch (error) {
