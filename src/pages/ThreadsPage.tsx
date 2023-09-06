@@ -25,8 +25,12 @@ type CommentsState = {
 type RootStateProps = {
   comments: CommentsState;
 };
+// type ErrorProps = {
+//   message: string
+// }
 
-function isValidComment(comment: any): comment is Comment {
+
+function isValidComment(comment: Comment): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
 

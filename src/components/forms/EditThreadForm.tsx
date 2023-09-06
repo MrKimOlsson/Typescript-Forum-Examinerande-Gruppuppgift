@@ -3,35 +3,52 @@ import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../store/service/threadsService';
 import { useNavigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
+import { ThreadCategory, Thread, User } from '../../types';
 
 const EditThreadForm: React.FC = () => {
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
-    const [thread, setThread] = useState<any>(null);
-    const [newThreadInfo, setNewThreadInfo] = useState<any>({
+    const [user, setUser] = useState<string>('')
+
+    const min: number = 1;
+    const max: number = 1000000;
+    const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const userObject: User = {
+        id: randomNumber,
+        name: user,
+        userName: user + randomNumber,
+    }
+    const [thread, setThread] = useState<Thread | null>(null);
+    const [newThreadInfo, setNewThreadInfo] = useState<Thread>({
         title: '',
         description: '',
-        category: '',
+        category: category as ThreadCategory,
+        id: randomNumber,
+        creator: userObject,
+        creationDate: new Date().toISOString(),
     });
     const navigate = useNavigate();
 
     useEffect(() => {
         if (threadId) {
-            getThreadById(threadId, category)
-                .then((response) => {
-                    if (response) {
-                        console.log(response);
-                        setThread(response);
-
-                        // Uppdatera newThreadInfo med befintlig information från tråden
-                        setNewThreadInfo({
-                            title: response.title,
-                            description: response.description,
-                            category: response.category,
-                        });
-                    } else {
-                        console.log('Tråden hittades inte.');
-                    }
-                })
+          getThreadById(threadId, category)
+            .then((response) => {
+              if (response) {
+                console.log(response);
+                setThread(response);
+                setNewThreadInfo((prev) => ({
+                  ...prev,
+                  title: response.title,
+                  description: response.description,
+                  category: response.category,
+                  id: response.id,
+                  creator: response.creator,
+                  creationDate: response.creationDate,
+                }));
+              } else {
+                console.log('Tråden hittades inte.');
+              }
+            })
                 .catch((error) => {
                     // Hantera fel här
                     console.error('Fel vid hämtning av tråd:', error);
@@ -52,10 +69,10 @@ const EditThreadForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (threadId) {
+        if (thread && threadId) {
             await updateThread(threadId, thread, newThreadInfo);
 
-            navigate('/general')
+            navigate('/category/general')
             //   navigate(`/general/${threadId}`);
         } else {
             console.error('Invalid threadId');
