@@ -7,7 +7,7 @@ import { addComment } from '../store/service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice } from '../store/slices/commentsSlice';
 import { useEffect } from 'react';
 import { ThreadCategory } from '../types'
-import { Comment, Thread as ThreadType } from '../types';
+import { Comment } from '../types';
 import { AppDispatch } from '../store';
 import CommentsComponent from '../components/comments/CommentsComponent';
 
@@ -58,9 +58,9 @@ const ThreadsPage = () => {
     return <p>Error: {error}</p>
   }
 
-  if(thread) {
-    const { title, description, creationDate, creator } = thread;
-  }
+  // if(thread) {
+  //   const { title, description, creationDate, creator } = thread;
+  // }
 
   if (id === undefined) {
     console.error('Failed to get the thread');
@@ -95,15 +95,6 @@ const ThreadsPage = () => {
       console.error('Error adding comment:', error);
     }
   };
-
-  // const handleDeleteComment = async (commentId: number) => {
-  //   try {
-  //     await dispatch(deleteCommentAsync(commentId));
-  //     console.log('Comment deleted successfully');
-  //   } catch (error) {
-  //     console.error('Error deleting comment:', error);
-  //   }
-  // };
 
   return (
     <div className='wrapper'>
