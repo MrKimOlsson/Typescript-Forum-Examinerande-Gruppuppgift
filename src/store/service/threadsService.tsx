@@ -1,6 +1,6 @@
 import { db } from "../../firebase/config"
 import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc } from "firebase/firestore";
-import { Thread } from "../../types";
+import { QNAThread, Thread } from "../../types";
 
 export async function addThread(thread: Thread): Promise<void> {
   try {
@@ -21,6 +21,22 @@ async function fetchThreads(category: string): Promise<Thread[]> {
     const threads: Thread[] = [];
     threadsSnapshot.forEach((doc) => {
       threads.push(doc.data() as Thread);
+    });
+
+    return threads;
+  } catch (error) {
+    console.error('Error fetching qna threads:', error);
+    return [];
+  }
+}
+
+async function fetchQnaThreads(category: string): Promise<QNAThread[]> {
+  try {
+    const ThreadsCollectionRef = collection(db, category+'threads');
+    const threadsSnapshot = await getDocs(ThreadsCollectionRef);
+    const threads: QNAThread[] = [];
+    threadsSnapshot.forEach((doc) => {
+      threads.push(doc.data() as QNAThread);
     });
 
     return threads;
@@ -76,7 +92,8 @@ const threadsSevice = {
   deleteThread,
   updateThread,
   getThreadById,
-  fetchThreads
+  fetchThreads,
+  fetchQnaThreads
 }
 
 export default threadsSevice
