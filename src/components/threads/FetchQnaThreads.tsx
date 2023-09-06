@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setThreadsList } from '../../store/slices/threadsSlice';
+import { setQnaThreadsList } from '../../store/slices/qnaThreadsSlice';
 import threadsService from '../../store/service/threadsService';
 
 // interface Props {
@@ -14,7 +14,7 @@ const FetchQnaThreads = () => {
     async function fetchAndSetThreads() {
       try {
         const threadsData = await threadsService.fetchQnaThreads('qna');
-        dispatch(setThreadsList(threadsData));
+        dispatch(setQnaThreadsList(threadsData));
       } catch (error) {
         // Handle error
       }

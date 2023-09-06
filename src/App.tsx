@@ -30,7 +30,7 @@ const App = () => {
         element: <Qna />,
       },
       {
-        path: ':category',
+        path: 'category/:category',
         element: <ThreadCategory />,
       },
       {

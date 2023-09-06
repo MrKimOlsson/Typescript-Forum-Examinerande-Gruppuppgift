@@ -11,7 +11,7 @@ const Home = () => {
           <h3>Add new thread</h3>
           <div className='plus-icon'>+</div>
         </Link>
-        <Link className='threadCategory odd' to='/general'>
+        <Link className='threadCategory odd' to='category/general'>
           <h3>General</h3>
           <p>Threads about everything between heaven and earth and beyond.</p>
         </Link>
@@ -19,19 +19,19 @@ const Home = () => {
           <h3>QNA</h3>
           <p>Questions and answers. Ask anything about anything and you shall receive knowledge.</p>
         </Link>
-        <Link className='threadCategory odd' to='/news'>
+        <Link className='threadCategory odd' to='category/news'>
           <h3>News</h3>
           <p>All the latest news about stuff you actually care about, probably maybe.</p>
         </Link>
-        <Link className='threadCategory even' to='/sports'>
+        <Link className='threadCategory even' to='category/sports'>
           <h3>Sports</h3>
           <p>Everything about sports! For those who care about that stuff. I mean I don´t but maybe you do.</p>
         </Link>
-        <Link className='threadCategory odd' to='/politics'>
+        <Link className='threadCategory odd' to='category/politics'>
           <h3>Politics</h3>
           <p>All the lies ever told in politics, collected in one space for you to enjoy.</p>
         </Link>
-        <Link className='threadCategory even' to='/other'>
+        <Link className='threadCategory even' to='category/other'>
           <h3>Other</h3>
           <p>Threads about everything else. I don´t know, you tell me.</p>
         </Link>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-import FetchQnaThreads from '../components/threads/FetchThreads'; // Update the import
-import QnaThreadsComponent from '../components/threads/ThreadsComponent';
+import FetchQnaThreads from '../components/threads/FetchQnaThreads';
+import QnaThreadsComponent from '../components/threads/QnaThreadsComponent';
+import { QNAThread } from '../types';
 
 const Qna = () => {
 
-  const threadsList = useSelector((state: RootState) => state.threads.threadsList);
+  console.log('in the qna page!')
+
+  const qnaThreadsList = useSelector((state: RootState) => state.qna.qnaThreadsList);
 
   return (
     <div className='threadWrapper'>
@@ -14,9 +17,9 @@ const Qna = () => {
         <h2>QNA threads</h2>
       </div>
       {/* Pass 'categoryName' to the FetchThreads component */}
-      <FetchQnaThreads category={'qna'} /> {/* Update the component name here */}
-      {threadsList.length > 0 ? (
-        threadsList.map((thread, index) => (
+      <FetchQnaThreads/> {/* Update the component name here */}
+      {qnaThreadsList.length > 0 ? (
+        qnaThreadsList.map((thread: QNAThread, index: number) => (
           <QnaThreadsComponent key={thread.id} thread={thread} index={index} />
         ))
       ) : (

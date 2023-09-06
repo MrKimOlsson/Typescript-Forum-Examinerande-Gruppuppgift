@@ -1,19 +1,16 @@
 import React from 'react';
-import { QNAThread, Thread } from '../../types';
+import { QNAThread } from '../../types';
 import { Link } from 'react-router-dom';
 import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';
 import { removeThread } from '../../store/slices/threadsSlice';
-
 
 interface ThreadsProps {
   thread: QNAThread;
   index: number; // Add an index prop to determine even/odd
 }
 
-
-
-const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
+const QnaThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
@@ -31,19 +28,35 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f0f0f0',
   };
 
+
+  // No answer to the QNA thread
+  let answerStyle = {
+    color: 'firebrick',
+  };
+  let isAnswered = 'No answers yet..'
+
+  // Answers to the QNA thread
+  if(thread.isAnswered){
+    answerStyle = {
+      color: 'green',
+    };
+    isAnswered = 'This question is answered'
+  }
   
   return (
     <div className='thread' style={cardStyle}>
       <Link to={`/thread/${thread.category}/${thread.id}`}>
         <div className='content'>
           <div className='row'>
-            <p>Categorydgfgd: {thread.category}</p>
+            <p>Category: {thread.category}</p>
             <p>Creation date: {thread.creationDate}</p>
-            <p>vaffan</p>
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
           <p className='threadDescription descriptionStyle'>{thread.description}</p>
-          <p className='threadCreator'>Author: {thread.creator.userName}</p>
+          <div className='bottom-row'>
+            <p style={answerStyle}>{isAnswered}</p>
+            <p className='threadCreator'>Author: {thread.creator.userName}</p>
+          </div>
           <br />
         </div>
       </Link>
@@ -59,4 +72,4 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
   );
 }
 
-export default ThreadsComponent;
+export default QnaThreadsComponent;
