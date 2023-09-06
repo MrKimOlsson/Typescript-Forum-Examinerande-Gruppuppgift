@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/index';
-import FetchThreads from '../../components/threads/FetchThreads'; // Update the import
-import ThreadsComponent from '../../components/threads/ThreadsComponent';
+import { RootState } from '../store/index';
+import FetchThreads from '../components/threads/FetchThreads'; // Update the import
+import ThreadsComponent from '../components/threads/ThreadsComponent';
 import { useParams } from 'react-router-dom';
-
+import {Thread} from '../types'
+ 
 const News = () => {
 
     const { category } = useParams<{ category: string }>();
