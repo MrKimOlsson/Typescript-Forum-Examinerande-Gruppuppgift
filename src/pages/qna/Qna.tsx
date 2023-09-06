@@ -4,10 +4,11 @@ import { RootState } from '../../store/index';
 import FetchThreads from '../../components/threads/FetchThreads'; // Update the import
 import ThreadsComponent from '../../components/threads/ThreadsComponent';
 import { useParams } from 'react-router-dom';
+import { CategoryProps } from '../../types';
 
 const Qna = () => {
 
-    const { category } = useParams<{ category: string }>();
+    const { category } = useParams<CategoryProps>();
     console.log(category)
     
     const threadsList = useSelector((state: RootState) => state.threads.threadsList);

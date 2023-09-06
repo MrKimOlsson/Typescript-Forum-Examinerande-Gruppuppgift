@@ -28,3 +28,6 @@ export interface Comment {
 	creator: User
 }
 
+export type CategoryProps = {
+    category: ThreadCategory
+  }
