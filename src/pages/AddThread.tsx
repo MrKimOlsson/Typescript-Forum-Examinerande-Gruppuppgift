@@ -1,6 +1,6 @@
 import React from 'react'
-import AddThreadForm from '../../components/AddThreadForm/AddThreadForm'
-import '../../components/AddThreadForm/addThreadForm.css'
+import AddThreadForm from '../components/forms/AddThreadForm/AddThreadForm'
+import '../components/forms/AddThreadForm/addThreadForm.css'
 
 
 const AddThread = () => {

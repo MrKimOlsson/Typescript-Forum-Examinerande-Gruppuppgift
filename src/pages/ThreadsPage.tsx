@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import useDoc from '../../hooks/useDoc';
-import Loader from '../../components/loader/Loader';
+import useDoc from '../hooks/useDoc';
+import Loader from '../components/loader/Loader';
 import { useParams } from 'react-router-dom';
-import CommentForm from '../../components/AddCommentForm/CommentForm';
-import { addComment } from '../../service/commentsService';
-import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
-import { useState, useEffect } from 'react';
-import './Thread.css'
-import { ThreadCategory } from '../../types'
-import { Comment, Thread as ThreadType } from '../../types';
-import { AppDispatch, RootState } from '../../store';
-import CommentsComponent from '../../components/comments/CommentsComponent';
+import CommentForm from '../components/forms/AddCommentForm/CommentForm';
+import { addComment } from '../store/service/commentsService';
+import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../store/slices/commentsSlice';
+import { useEffect } from 'react';
+import { ThreadCategory } from '../types'
+import { Comment, Thread as ThreadType } from '../types';
+import { AppDispatch, RootState } from '../store';
+import CommentsComponent from '../components/comments/CommentsComponent';
 
 
 type ThreadProps = {
@@ -36,7 +35,7 @@ function isValidComment(comment: any): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
 
-const Thread = () => {
+const ThreadsPage = () => {
   const { id, category } = useParams<ThreadProps>();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -97,14 +96,14 @@ const Thread = () => {
     }
   };
 
-  const handleDeleteComment = async (commentId: number) => {
-    try {
-      await dispatch(deleteCommentAsync(commentId));
-      console.log('Comment deleted successfully');
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-    }
-  };
+  // const handleDeleteComment = async (commentId: number) => {
+  //   try {
+  //     await dispatch(deleteCommentAsync(commentId));
+  //     console.log('Comment deleted successfully');
+  //   } catch (error) {
+  //     console.error('Error deleting comment:', error);
+  //   }
+  // };
 
   return (
     <div className='wrapper'>
@@ -131,7 +130,7 @@ const Thread = () => {
             <CommentsComponent key={comment.id} comment={comment} index={index} />
           ))
         ) : (
-          <h2>No threads to show</h2>
+          <h5 className='noCommentsText'>Be the first to comment!</h5>
         )}
 
       </div>
@@ -141,4 +140,4 @@ const Thread = () => {
   );
 };
 
-export default Thread;
+export default ThreadsPage;

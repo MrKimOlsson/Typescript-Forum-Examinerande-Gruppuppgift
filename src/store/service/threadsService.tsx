@@ -1,6 +1,6 @@
-import { db } from "../firebase/config"
+import { db } from "../../firebase/config"
 import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot, updateDoc } from "firebase/firestore";
-import { Thread } from "../types";
+import { Thread } from "../../types";
 
 export async function addThread(thread: Thread): Promise<void> {
   try {
@@ -13,7 +13,7 @@ export async function addThread(thread: Thread): Promise<void> {
   }
 }
 
-// Experimental dynamic fetch
+// Dynamic fetch function to get threads of any category
 async function fetchThreads(category: string): Promise<Thread[]> {
   try {
     const ThreadsCollectionRef = collection(db, category+'threads');
@@ -24,38 +24,6 @@ async function fetchThreads(category: string): Promise<Thread[]> {
     });
 
     return threads;
-  } catch (error) {
-    console.error('Error fetching qna threads:', error);
-    return [];
-  }
-}
-
-async function fetchGeneralThreads(): Promise<Thread[]> {
-  try {
-    const GeneralThreadsCollectionRef = collection(db, 'generalthreads');
-    const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
-    const generalThreads: Thread[] = [];
-    generalThreadsSnapshot.forEach((doc) => {
-      generalThreads.push(doc.data() as Thread);
-    });
-
-    return generalThreads;
-  } catch (error) {
-    console.error('Error fetching general threads:', error);
-    return [];
-  }
-}
-
-async function fetchQnaThreads(): Promise<Thread[]> {
-  try {
-    const QnaThreadsCollectionRef = collection(db, 'qnathreads');
-    const qnaThreadsSnapshot = await getDocs(QnaThreadsCollectionRef);
-    const qnaThreads: Thread[] = [];
-    qnaThreadsSnapshot.forEach((doc) => {
-      qnaThreads.push(doc.data() as Thread);
-    });
-
-    return qnaThreads;
   } catch (error) {
     console.error('Error fetching qna threads:', error);
     return [];
@@ -105,8 +73,6 @@ export async function getThreadById(threadId: string, category?: string): Promis
 
 
 const threadsSevice = {
-  fetchGeneralThreads,
-  fetchQnaThreads,
   deleteThread,
   updateThread,
   getThreadById,

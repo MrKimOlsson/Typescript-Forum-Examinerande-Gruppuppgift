@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { Comment } from '../../types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment } from '../../service/commentsService';
-import { fetchCommentsByThreadId, addComment as addCommentToSlice, deleteCommentAsync } from '../../store/commentsSlice';
+import { fetchCommentsByThreadId, deleteCommentAsync } from '../../store/slices/commentsSlice';
 import useDoc from '../../hooks/useDoc';
 import { AppDispatch } from '../../store';
 import Loader from '../loader/Loader';
@@ -18,8 +17,8 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     const { id, category } = useParams<{ id: string; category: string }>();
     const dispatch = useDispatch<AppDispatch>();
 
-    const comments = useSelector((state: any) => state.comments.comments);
-     const commentsLoading = useSelector((state: any) => state.comments.loading);
+    // const comments = useSelector((state: any) => state.comments.comments);
+    //  const commentsLoading = useSelector((state: any) => state.comments.loading);
 
      const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
@@ -67,7 +66,7 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
             <p className='commentContent'>{comment.content}</p>
             <div className='row'>
             <p className="commentCreator">User: {comment.creator.name}</p>
-            <button onClick={() => handleDeleteComment(comment.id)}className="btn-delete">Delete</button>
+            <button onClick={() => handleDeleteComment(comment.id)}className="btn">Delete</button>
             </div>
         </div>
     </div>

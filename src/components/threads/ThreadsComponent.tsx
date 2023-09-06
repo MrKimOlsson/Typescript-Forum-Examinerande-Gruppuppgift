@@ -1,10 +1,9 @@
 import React from 'react';
 import { Thread } from '../../types';
 import { Link } from 'react-router-dom';
-import threadsService from '../../service/threadsService';
+import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';
-import { removeThread } from '../../store/threadsSlice';
-import './threadsComponent.css'
+import { removeThread } from '../../store/slices/threadsSlice';
 
 
 interface ThreadsProps {
@@ -58,6 +57,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
 
       <div className='threadButtons'>
         <Link to={`/edit-thread/${thread.category}/${thread.id}`} className='btn'>Edit</Link>
+        <Link to={`/thread/${thread.category}/${thread.id}`} className='btn'>Read more</Link>
         <button onClick={handleDelete} className="btn">Delete</button>
       </div>
       </div>
