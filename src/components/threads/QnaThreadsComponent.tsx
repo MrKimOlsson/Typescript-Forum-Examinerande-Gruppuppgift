@@ -3,7 +3,7 @@ import { QNAThread } from '../../types';
 import { Link } from 'react-router-dom';
 import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';
-import { removeThread } from '../../store/slices/threadsSlice';
+import { removeQnaThread } from '../../store/slices/qnaThreadsSlice';
 
 interface ThreadsProps {
   thread: QNAThread;
@@ -15,10 +15,9 @@ const QnaThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
 
   const handleDelete = async () => {
     try {
-      await threadsService.deleteThread(String(thread.id) , thread);
-      // await threadsService.deleteThread(String(thread.id));
+      await threadsService.deleteQnaThread(String(thread.id) , thread);
       console.log('Thread deleted successfully');
-      dispatch(removeThread(String(thread.id)));
+      dispatch(removeQnaThread(String(thread.id)));
     } catch (error) {
       console.error('Failed to delete thread:', error);
     }
