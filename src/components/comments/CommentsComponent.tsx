@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Comment } from '../../types';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchCommentsByThreadId, deleteCommentAsync } from '../../store/slices/commentsSlice';
 import useDoc from '../../hooks/useDoc';
 import { AppDispatch } from '../../store';
@@ -43,7 +43,6 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
         </div>
         );
     }
-
 
         const cardStyle = {
             backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#ffffff',
