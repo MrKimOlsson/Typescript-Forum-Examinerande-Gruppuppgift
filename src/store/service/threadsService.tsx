@@ -34,12 +34,12 @@ async function fetchQnaThreads(category: string): Promise<QNAThread[]> {
   try {
     const ThreadsCollectionRef = collection(db, category+'threads');
     const threadsSnapshot = await getDocs(ThreadsCollectionRef);
-    const threads: QNAThread[] = [];
+    const qnaThreads: QNAThread[] = [];
     threadsSnapshot.forEach((doc) => {
-      threads.push(doc.data() as QNAThread);
+      qnaThreads.push(doc.data() as QNAThread);
     });
 
-    return threads;
+    return qnaThreads;
   } catch (error) {
     console.error('Error fetching qna threads:', error);
     return [];
