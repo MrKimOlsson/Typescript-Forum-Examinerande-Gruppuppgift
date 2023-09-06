@@ -106,7 +106,7 @@ const ThreadsPage = () => {
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
           <p className='threadDescription'>{thread.description}</p>
-          <p className='threadCreator'>Creator: {thread.creator.userName}</p>
+          <p className='threadCreator'>Author: {thread.creator.userName}</p>
           <br />
         </div>
       </div>

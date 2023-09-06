@@ -5,7 +5,7 @@ import FetchThreads from '../components/threads/FetchThreads'; // Update the imp
 import ThreadsComponent from '../components/threads/ThreadsComponent';
 import { useParams } from 'react-router-dom';
 
-const Sports = () => {
+const ThreadCategory = () => {
 
     const { category } = useParams<{ category: string }>();
     console.log(category)
@@ -37,4 +37,4 @@ const Sports = () => {
   );
 }
 
-export default Sports;
+export default ThreadCategory;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Thread } from '../../types';
+import { QNAThread, Thread } from '../../types';
 import { Link } from 'react-router-dom';
 import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import { removeThread } from '../../store/slices/threadsSlice';
 
 
 interface ThreadsProps {
-  thread: Thread;
+  thread: QNAThread;
   index: number; // Add an index prop to determine even/odd
 }
 
@@ -37,8 +37,9 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
       <Link to={`/thread/${thread.category}/${thread.id}`}>
         <div className='content'>
           <div className='row'>
-            <p>Category: {thread.category}</p>
+            <p>Categorydgfgd: {thread.category}</p>
             <p>Creation date: {thread.creationDate}</p>
+            <p>vaffan</p>
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
           <p className='threadDescription descriptionStyle'>{thread.description}</p>

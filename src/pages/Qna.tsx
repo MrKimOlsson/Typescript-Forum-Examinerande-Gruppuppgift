@@ -1,33 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-import FetchThreads from '../components/threads/FetchThreads'; // Update the import
-import ThreadsComponent from '../components/threads/ThreadsComponent';
-import { useParams } from 'react-router-dom';
+import FetchQnaThreads from '../components/threads/FetchThreads'; // Update the import
+import QnaThreadsComponent from '../components/threads/ThreadsComponent';
 
 const Qna = () => {
 
-    const { category } = useParams<{ category: string }>();
-    console.log(category)
-    
-    const threadsList = useSelector((state: RootState) => state.threads.threadsList);
-
-  // Provide a default value for category in case it's undefined
-  const categoryName = category || 'DefaultCategory';
-
-  // Debugging: Log the 'categoryName' to the console to verify it's set correctly.
-  console.log('Category:', categoryName);
+  const threadsList = useSelector((state: RootState) => state.threads.threadsList);
 
   return (
     <div className='threadWrapper'>
       <div className='categoryWrapper'>
-        <h2>{categoryName} threads</h2>
+        <h2>QNA threads</h2>
       </div>
       {/* Pass 'categoryName' to the FetchThreads component */}
-      <FetchThreads category={categoryName} /> {/* Update the component name here */}
+      <FetchQnaThreads category={'qna'} /> {/* Update the component name here */}
       {threadsList.length > 0 ? (
         threadsList.map((thread, index) => (
-          <ThreadsComponent key={thread.id} thread={thread} index={index} />
+          <QnaThreadsComponent key={thread.id} thread={thread} index={index} />
         ))
       ) : (
         <h2>No threads to show</h2>
