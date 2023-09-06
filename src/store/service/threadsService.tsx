@@ -1,5 +1,5 @@
 import { db } from "../../firebase/config"
-import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
 import { QNAThread, Thread } from "../../types";
 
 export async function addThread(thread: Thread): Promise<void> {
@@ -48,13 +48,22 @@ async function fetchQnaThreads(category: string): Promise<QNAThread[]> {
 
 async function deleteThread(threadId: string, thread: Thread): Promise<void> {
   try {
-    const threadRef = doc(db, thread.category+"threads", threadId);
+
+    const commentsQuery = query(collection(db, 'comments'), where('thread', '==', parseInt(threadId, 10)));
+    const commentsSnapshot = await getDocs(commentsQuery);
+
+    const deleteCommentsPromises = commentsSnapshot.docs.map(docSnapshot => deleteDoc(doc(db, 'comments', docSnapshot.id)));
+    await Promise.all(deleteCommentsPromises);
+
+
+    const threadRef = doc(db, thread.category + "threads", threadId);
     await deleteDoc(threadRef);
   } catch (error) {
     console.error('Error deleting thread:', error);
     throw error;
   }
 }
+
 
 async function deleteQnaThread(threadId: string, thread: QNAThread): Promise<void> {
   try {
