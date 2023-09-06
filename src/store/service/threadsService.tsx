@@ -56,6 +56,16 @@ async function deleteThread(threadId: string, thread: Thread): Promise<void> {
   }
 }
 
+async function deleteQnaThread(threadId: string, thread: QNAThread): Promise<void> {
+  try {
+    const threadRef = doc(db, "qnathreads", threadId);
+    await deleteDoc(threadRef);
+  } catch (error) {
+    console.error('Error deleting thread:', error);
+    throw error;
+  }
+}
+
 export async function updateThread(threadId: string, thread: Thread, updatedThread: Partial<Thread>): Promise<void> {
   try {
     const threadRef = doc(db, thread.category+"threads", threadId); // Ändra till 'generalthreads'
@@ -90,6 +100,7 @@ export async function getThreadById(threadId: string, category?: string): Promis
 
 const threadsSevice = {
   deleteThread,
+  deleteQnaThread,
   updateThread,
   getThreadById,
   fetchThreads,

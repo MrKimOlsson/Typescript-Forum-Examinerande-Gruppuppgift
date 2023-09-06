@@ -37,7 +37,7 @@ const qnaThreadsSlice = createSlice({
     setQnaThreadsList: (state, action: PayloadAction<QNAThread[]>) => {
       state.qnaThreadsList = action.payload;
     },
-    removeThread: (state, action: PayloadAction<string>) => {
+    removeQnaThread: (state, action: PayloadAction<string>) => {
       state.qnaThreadsList = state.qnaThreadsList.filter(thread => thread.id !== Number(action.payload));
     },
   },
@@ -59,6 +59,6 @@ const qnaThreadsSlice = createSlice({
   },
 });
 
-export const { setQnaThreadsList, removeThread } = qnaThreadsSlice.actions;
+export const { setQnaThreadsList, removeQnaThread } = qnaThreadsSlice.actions;
 
 export default qnaThreadsSlice.reducer;
