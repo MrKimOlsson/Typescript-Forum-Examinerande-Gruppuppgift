@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User, ThreadCategory } from '../../types'
+import { Thread, User, ThreadCategory } from '../../../types'
 import { useDispatch } from 'react-redux'
-import { addThread } from '../../service/threadsService'
+import { addThread } from '../../../store/service/threadsService'
 import { useNavigate } from 'react-router-dom'
-import { addUser, getUserByName } from '../../service/userService'
+import { addUser, getUserByName } from '../../../store/service/userService'
 
 const AddThreadForm = () => {
     const [thread, setThread] = useState<Thread[]>([])

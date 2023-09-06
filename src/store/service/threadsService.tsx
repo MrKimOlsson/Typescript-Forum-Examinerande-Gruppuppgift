@@ -1,6 +1,6 @@
-import { db } from "../firebase/config"
-import { getFirestore, collection, deleteDoc, addDoc, doc, setDoc, getDoc, query, where, getDocs, DocumentSnapshot, updateDoc } from "firebase/firestore";
-import { Thread } from "../types";
+import { db } from "../../firebase/config"
+import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { QNAThread, Thread } from "../../types";
 
 export async function addThread(thread: Thread): Promise<void> {
   try {
@@ -13,7 +13,7 @@ export async function addThread(thread: Thread): Promise<void> {
   }
 }
 
-// Experimental dynamic fetch
+// Dynamic fetch function to get threads of any category
 async function fetchThreads(category: string): Promise<Thread[]> {
   try {
     const ThreadsCollectionRef = collection(db, category+'threads');
@@ -30,32 +30,16 @@ async function fetchThreads(category: string): Promise<Thread[]> {
   }
 }
 
-async function fetchGeneralThreads(): Promise<Thread[]> {
+async function fetchQnaThreads(category: string): Promise<QNAThread[]> {
   try {
-    const GeneralThreadsCollectionRef = collection(db, 'generalthreads');
-    const generalThreadsSnapshot = await getDocs(GeneralThreadsCollectionRef);
-    const generalThreads: Thread[] = [];
-    generalThreadsSnapshot.forEach((doc) => {
-      generalThreads.push(doc.data() as Thread);
+    const ThreadsCollectionRef = collection(db, category+'threads');
+    const threadsSnapshot = await getDocs(ThreadsCollectionRef);
+    const threads: QNAThread[] = [];
+    threadsSnapshot.forEach((doc) => {
+      threads.push(doc.data() as QNAThread);
     });
 
-    return generalThreads;
-  } catch (error) {
-    console.error('Error fetching general threads:', error);
-    return [];
-  }
-}
-
-async function fetchQnaThreads(): Promise<Thread[]> {
-  try {
-    const QnaThreadsCollectionRef = collection(db, 'qnathreads');
-    const qnaThreadsSnapshot = await getDocs(QnaThreadsCollectionRef);
-    const qnaThreads: Thread[] = [];
-    qnaThreadsSnapshot.forEach((doc) => {
-      qnaThreads.push(doc.data() as Thread);
-    });
-
-    return qnaThreads;
+    return threads;
   } catch (error) {
     console.error('Error fetching qna threads:', error);
     return [];
@@ -105,12 +89,11 @@ export async function getThreadById(threadId: string, category?: string): Promis
 
 
 const threadsSevice = {
-  fetchGeneralThreads,
-  fetchQnaThreads,
   deleteThread,
   updateThread,
   getThreadById,
-  fetchThreads
+  fetchThreads,
+  fetchQnaThreads
 }
 
 export default threadsSevice

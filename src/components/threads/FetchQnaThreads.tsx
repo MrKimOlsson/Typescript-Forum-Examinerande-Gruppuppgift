@@ -1,41 +1,29 @@
-// import React, { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { setQnaThreadsList } from '../../store/qnaThreadsSlice'; // Correct the import path
-// import threadsService from '../../service/threadsService';
-// import { Thread } from '../../types';
-// // import { RootState } from '../../store';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setThreadsList } from '../../store/slices/threadsSlice';
+import threadsService from '../../store/service/threadsService';
 
-
-// export const FetchQnaThreads = () => {
-
-//   const dispatch = useDispatch(); // Get the dispatch function
-
-//   useEffect(() => {
-//     async function fetchAndSetQnaThreads() {
-//       try {
-//         const threadsData = await threadsService.fetchQnaThreads(); // Assuming this returns an array of products
-
-//         dispatch(setQnaThreadsList(threadsData)); // Dispatch the action to update the Redux state
-        
-//       } catch (error) {
-//         // Handle error
-//       }
-//     }
-
-//     fetchAndSetQnaThreads();
-//   }, []);
-
-//   return <div>{/* You can render something here if needed */}</div>;
-// };
-
-// export default FetchQnaThreads;
-
-import React from 'react'
+// interface Props {
+//   category: string;
+// }
 
 const FetchQnaThreads = () => {
-  return (
-    <div>FetchQnaThreads</div>
-  )
-}
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    async function fetchAndSetThreads() {
+      try {
+        const threadsData = await threadsService.fetchQnaThreads('qna');
+        dispatch(setThreadsList(threadsData));
+      } catch (error) {
+        // Handle error
+      }
+    }
 
-export default FetchQnaThreads
+    fetchAndSetThreads();
+  }, []);
+
+  return <div>{/* You can render something here if needed */}</div>;
+};
+
+export default FetchQnaThreads;

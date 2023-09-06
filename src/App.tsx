@@ -3,16 +3,12 @@ import RootLayout from './layout/RootLayout';
 import './App.css'
 
 // Pages
-import Home from './pages/home/Home';
-import Qna from './pages/qna/Qna';
-import News from './pages/news/News';
-import Sports from './pages/sports/Sports';
-import Politics from './pages/politics/Politics';
-import Other from './pages/other/Other';
-import General from './pages/general/General'
-import AddThread from './pages/addThread/AddThread';
-import Thread from './pages/thread/Thread';
-import EditThread from './pages/editThread/EditThread'
+import Home from './pages/Home';
+import Qna from './pages/Qna';
+import AddThread from './pages/AddThread';
+import ThreadsPage from './pages/ThreadsPage';
+import EditThread from './pages/EditThread'
+import ThreadCategory from './pages/ThreadCategory';
 
 const App = () => {
 
@@ -30,28 +26,12 @@ const App = () => {
         element: <Home />,
       },
       {
-        path: ':category',
-        element: <General />,
-      },
-      {
-        path: ':category',
+        path: 'qna',
         element: <Qna />,
       },
       {
         path: ':category',
-        element: <News />,
-      },
-      {
-        path: ':category',
-        element: <Sports />,
-      },
-      {
-        path: ':category',
-        element: <Politics />,
-      },
-      {
-        path: ':category',
-        element: <Other />,
+        element: <ThreadCategory />,
       },
       {
         path: 'add-thread',
@@ -63,7 +43,7 @@ const App = () => {
       },
       {
         path: 'thread/:category/:id',
-        element: <Thread />,
+        element: <ThreadsPage />,
       },   
       ],
     },

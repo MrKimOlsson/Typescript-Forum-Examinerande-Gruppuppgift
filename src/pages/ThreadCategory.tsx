@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/index';
-import FetchThreads from '../../components/threads/FetchThreads'; // Update the import
-import ThreadsComponent from '../../components/threads/ThreadsComponent';
+import { RootState } from '../store/index';
+import FetchThreads from '../components/threads/FetchThreads'; // Update the import
+import ThreadsComponent from '../components/threads/ThreadsComponent';
 import { useParams } from 'react-router-dom';
+import { CategoryProps } from '../../types';
 
-const Other = () => {
+const ThreadCategory = () => {
 
-    const { category } = useParams<{ category: string }>();
+
+
+    const { category } = useParams<CategoryProps>();
     console.log(category)
     
     const threadsList = useSelector((state: RootState) => state.threads.threadsList);
@@ -37,4 +40,4 @@ const Other = () => {
   );
 }
 
-export default Other;
+export default ThreadCategory;

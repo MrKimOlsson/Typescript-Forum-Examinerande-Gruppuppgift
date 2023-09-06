@@ -1,6 +1,5 @@
 import React from 'react';
-import EditThreadForm from '../../components/EditThreadForm/EditThreadForm';
-// import { useParams } from 'react-router-dom';
+import EditThreadForm from '../components/forms/EditThreadForm';
 
 const EditThread = () => {
 

@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setThreadsList } from '../../store/threadsSlice';
-import threadsService from '../../service/threadsService';
+import { setThreadsList } from '../../store/slices/threadsSlice';
+import threadsService from '../../store/service/threadsService';
 
 interface Props {
   category: string;
 }
 
 const FetchThreads = ({ category }: Props) => {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  let fetchThreads = threadsService.fetchThreads;
+ 
+  if(category === 'qna'){
+    fetchThreads = threadsService.fetchQnaThreads;
+   }
+  
+  
+  
   useEffect(() => {
     async function fetchAndSetThreads(category: string) {
       try {
-        const threadsData = await threadsService.fetchThreads(category);
+        const threadsData = await fetchThreads(category);
         dispatch(setThreadsList(threadsData));
       } catch (error) {
         // Handle error
@@ -22,6 +30,9 @@ const FetchThreads = ({ category }: Props) => {
 
     fetchAndSetThreads(category);
   }, [category]);
+
+
+
 
   return <div>{/* You can render something here if needed */}</div>;
 };

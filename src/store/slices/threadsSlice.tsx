@@ -1,5 +1,5 @@
-import threadsService from "../service/threadsService";
-import { Thread } from '../types';
+import threadsService from "../../store/service/threadsService";
+import { Thread } from '../../types';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -19,12 +19,15 @@ const initialState: ThreadsState = {
   loading: false,
 };
 
+// interface Category {
+//   category: string;
+// }
 
 export const getThreads = createAsyncThunk(
-  'generalthreads/getAll',
-  async (_, thunkAPI) => {
+  'threads/getAll',
+  async (category: string, thunkAPI) => {
     try {
-      return await threadsService.fetchGeneralThreads();
+      return await threadsService.fetchThreads(category);
     } catch (err) {
       return thunkAPI.rejectWithValue((err as Error).message);
     }
@@ -32,7 +35,7 @@ export const getThreads = createAsyncThunk(
 );
 
 const threadsSlice = createSlice({
-  name: 'generalthreads',
+  name: 'threads',
   initialState,
   reducers: {
     setThreadsList: (state, action: PayloadAction<Thread[]>) => {
