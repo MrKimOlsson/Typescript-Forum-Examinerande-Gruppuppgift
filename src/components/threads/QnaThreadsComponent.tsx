@@ -54,7 +54,7 @@ const QnaThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
           <p className='threadDescription descriptionStyle'>{thread.description}</p>
           <div className='bottom-row'>
             <p style={answerStyle}>{isAnswered}</p>
-            <p className='threadCreator'>Author: {thread.creator.userName}</p>
+            <p className='threadCreator'>Author: {thread.creator.name}</p>
           </div>
           <br />
         </div>

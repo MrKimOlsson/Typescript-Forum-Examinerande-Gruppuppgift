@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../store/service/threadsService';
 import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
+import { ChildProcess } from 'child_process';
 
 const EditThreadForm: React.FC = () => {
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
@@ -30,6 +32,8 @@ const EditThreadForm: React.FC = () => {
     const formattedDate = dateFormatter.format(creationDate)
 
     const [thread, setThread] = useState<QNAThread | null>(null);
+    console.log('thread: ')
+    console.log(thread)
     const [newThreadInfo, setNewThreadInfo] = useState<QNAThread>({
         title: '',
         description: '',
@@ -48,7 +52,7 @@ const EditThreadForm: React.FC = () => {
             .then((response) => {
               if (response) {
                 console.log(response);
-                setThread(response);
+                setThread(response);              
                 setNewThreadInfo((prev) => ({
                   ...prev,
                   title: response.title,
@@ -57,10 +61,12 @@ const EditThreadForm: React.FC = () => {
                   id: response.id,
                   creator: response.creator,
                   creationDate: response.creationDate,
+                  isAnswered: response.isAnswered,
                 }));
               } else {
                 console.log('Tråden hittades inte.');
               }
+            // }
             })
                 .catch((error) => {
                     // Hantera fel här
@@ -77,15 +83,27 @@ const EditThreadForm: React.FC = () => {
         });
     };
 
+    // Function to perform a full page reload
+    function reloadPage() {
+        window.location.reload(); // Pass 'true' to force a hard reload from the server
+    }
 
+    function handleNavigation() {
+        // Navigate to the new URL
+        navigate('/category/qna');
+      
+        // Perform a full page reload
+        reloadPage();
+      }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (thread && threadId) {
             await updateThread(threadId, thread, newThreadInfo);
-
-            navigate('/category/qna')
+            
+            handleNavigation()
+            // navigate('/category/qna')
         } else {
             console.error('Invalid threadId');
         }
