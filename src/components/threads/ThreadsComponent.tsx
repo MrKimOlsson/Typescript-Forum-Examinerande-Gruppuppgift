@@ -11,8 +11,6 @@ interface ThreadsProps {
   index: number; // Add an index prop to determine even/odd
 }
 
-
-
 const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
   const dispatch = useDispatch();
 
@@ -30,7 +28,6 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f0f0f0',
   };
 
-  
   return (
     <div className='thread' style={cardStyle}>
       <Link to={`/thread/${thread.category}/${thread.id}`}>
