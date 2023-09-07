@@ -43,7 +43,7 @@ code {
   display: flex;
   justify-content: space-between;
   color: #00000081;
-  margin-bottom: 1rem;
+  align-items: center;
 }
   
 .center {

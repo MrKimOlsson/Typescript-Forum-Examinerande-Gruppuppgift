@@ -25,9 +25,7 @@ type CommentsState = {
 type RootStateProps = {
   comments: CommentsState;
 };
-// type ErrorProps = {
-//   message: string
-// }
+
 
 
 function isValidComment(comment: Comment): comment is Comment {
@@ -90,13 +88,19 @@ const ThreadsPage = () => {
         minute: '2-digit'
       })
 
+
+
       const formattedDate = dateFormatter.format(currentDate)
       const comment: Omit<Comment, 'id'> = {
         thread: Number(thread.id),
+
+        // Here we could set the creator to the logged in user
+        // For now we will pretend that the logged in user is named "Johnny Deg"
+        // To illustrate how a logged in experience would look like.
         creator: {
           id: 1,
-          name: "Anonymous",
-          userName: "AnonymousUser"
+          name: "Johnny Deg",
+          userName: "TheDoeMan"
         },
         content: commentText,
         createdAt: formattedDate,
@@ -122,7 +126,7 @@ const ThreadsPage = () => {
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
           <p className='threadDescription'>{thread.description}</p>
-          <p className='threadCreator'>Author: {thread.creator.userName}</p>
+          <p className='threadCreator'>Author: {thread.creator.name}</p>
           <br />
         </div>
       </div>
