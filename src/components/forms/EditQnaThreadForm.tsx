@@ -53,6 +53,7 @@ const EditThreadForm: React.FC = () => {
                   ...prev,
                   title: response.title,
                   description: response.description,
+                  category: response.category,
                   id: response.id,
                   creator: response.creator,
                   creationDate: response.creationDate,
@@ -66,7 +67,7 @@ const EditThreadForm: React.FC = () => {
                     console.error('Fel vid hämtning av tråd:', error);
                 });
         }
-    }, [threadId]);
+    }, [threadId, category]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -76,6 +77,8 @@ const EditThreadForm: React.FC = () => {
         });
     };
 
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -83,6 +86,7 @@ const EditThreadForm: React.FC = () => {
             await updateThread(threadId, thread, newThreadInfo);
 
             navigate('/category/qna')
+            //   navigate(`/general/${threadId}`);
         } else {
             console.error('Invalid threadId');
         }
@@ -107,14 +111,31 @@ const EditThreadForm: React.FC = () => {
                         </div>
                         <div className="input-group">
                             <label className='form-label' htmlFor="description">Description:</label>
-                            <textarea className='form-textarea'
+                            <textarea
                                 id="description"
                                 name="description"
                                 value={newThreadInfo.description}
                                 onChange={handleInputChange}
                             />
                         </div>
-                    
+                        <div className="input-group">
+                            <label className='form-label' htmlFor="category">Category:</label>
+                            <select
+                                required
+                                className="form-select"
+                                id="category"
+                                name="category"
+                                value={newThreadInfo.category}
+                                onChange={handleInputChange}
+                            >
+                                <option value="general">General</option>
+                                <option value="qna">QNA</option>
+                                <option value="news">News</option>
+                                <option value="sports">Sports</option>
+                                <option value="politics">Politics</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
                         <button type="submit">Update Thread</button>
                     </form>
                 </div>
@@ -127,3 +148,13 @@ const EditThreadForm: React.FC = () => {
 };
 
 export default EditThreadForm;
+
+// import React from 'react'
+
+// const EditQnaThreadForm = () => {
+//   return (
+//     <div>EditQnaThreadForm</div>
+//   )
+// }
+
+// export default EditQnaThreadForm
