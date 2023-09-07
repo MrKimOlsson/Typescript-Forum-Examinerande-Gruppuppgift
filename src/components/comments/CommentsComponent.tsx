@@ -7,6 +7,8 @@ import useDoc from '../../hooks/useDoc';
 import { AppDispatch } from '../../store';
 import Loader from '../loader/Loader';
 
+//Testing config my email for github, sorry
+
 interface ThreadsProps {
     comment: Comment;
     index: number; // Add an index prop to determine even/odd
