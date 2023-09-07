@@ -1,5 +1,5 @@
 import { getFirestore, collection, addDoc, getDocs, query, where, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
-import { Comment } from "../../types";
+import { Comment } from "../../types/types";
 
 const db = getFirestore();
 

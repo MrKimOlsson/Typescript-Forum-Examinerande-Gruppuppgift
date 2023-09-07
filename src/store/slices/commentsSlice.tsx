@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { Comment } from '../../types';
+import { Comment } from '../../types/types';
 import { getCommentsByThreadId, deleteComment as deleteCommentService } from '../service/commentsService';
 
 export const fetchCommentsByThreadId = createAsyncThunk(

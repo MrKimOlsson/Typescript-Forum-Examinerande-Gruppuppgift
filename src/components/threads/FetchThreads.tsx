@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setThreadsList } from '../../store/slices/threadsSlice';
 import threadsService from '../../store/service/threadsService';
-import { Thread } from '../../types';
+import { Thread } from '../../types/types';
 
 interface Props {
   category: string;

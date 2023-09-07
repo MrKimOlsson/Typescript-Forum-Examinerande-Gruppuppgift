@@ -1,6 +1,6 @@
 import { db } from "../../firebase/config"
 import { collection, deleteDoc, doc, setDoc, getDoc, getDocs, updateDoc, query, where } from "firebase/firestore";
-import { QNAThread, Thread } from "../../types";
+import { QNAThread, Thread } from "../../types/types";
 
 export async function addThread(thread: Thread): Promise<void> {
   try {

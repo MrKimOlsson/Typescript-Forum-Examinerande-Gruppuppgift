@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../store/service/threadsService';
 import { useNavigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
-import { ThreadCategory, Thread, User } from '../../types';
+import { ThreadCategory, Thread, User } from '../../types/types';
 
 const EditThreadForm: React.FC = () => {
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();

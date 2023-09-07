@@ -1,5 +1,5 @@
 import threadsService from "../service/threadsService";
-import { QNAThread } from '../../types';
+import { QNAThread } from '../../types/types';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 

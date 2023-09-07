@@ -1,5 +1,5 @@
 import React from 'react';
-import { QNAThread } from '../../types';
+import { QNAThread } from '../../types/types';
 import { Link } from 'react-router-dom';
 import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';
