@@ -86,7 +86,6 @@ const EditThreadForm: React.FC = () => {
             await updateThread(threadId, thread, newThreadInfo);
 
             navigate('/category/qna')
-            //   navigate(`/general/${threadId}`);
         } else {
             console.error('Invalid threadId');
         }
