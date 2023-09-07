@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setQnaThreadsList } from '../../store/slices/qnaThreadsSlice';
 import threadsService from '../../store/service/threadsService';
-import { QNAThread, Thread } from '../../types/types';
+import { QNAThread, Thread } from '../../types';
 
 const FetchQnaThreads = () => {
   const dispatch = useDispatch();

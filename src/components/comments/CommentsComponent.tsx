@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Comment } from '../../types/types';
+import { Comment } from '../../types';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCommentsByThreadId, deleteCommentAsync } from '../../store/slices/commentsSlice';

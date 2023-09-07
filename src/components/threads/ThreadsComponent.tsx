@@ -1,5 +1,5 @@
 import React from 'react';
-import { Thread } from '../../types/types';
+import { Thread } from '../../types';
 import { Link } from 'react-router-dom';
 import threadsService from '../../store/service/threadsService';
 import { useDispatch } from 'react-redux';

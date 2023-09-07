@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CommentForm.css'
-import { Comment } from '../../../types/types';
+import { Comment } from '../../../types';
 
 const CommentForm: React.FC<{ onCommentSubmit: (comment: string) => void }> = ({ onCommentSubmit }) => {
   const [commentText, setCommentText] = useState('');

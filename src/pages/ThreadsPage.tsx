@@ -6,8 +6,8 @@ import CommentForm from '../components/forms/AddCommentForm/CommentForm';
 import { addComment } from '../store/service/commentsService';
 import { fetchCommentsByThreadId, addComment as addCommentToSlice } from '../store/slices/commentsSlice';
 import { useEffect } from 'react';
-import { ThreadCategory } from '../types/types'
-import { Comment } from '../types/types';
+import { ThreadCategory } from '../types'
+import { Comment } from '../types';
 import { AppDispatch } from '../store';
 import CommentsComponent from '../components/comments/CommentsComponent';
 

@@ -4,8 +4,8 @@ import { RootState } from '../store/index';
 import FetchThreads from '../components/threads/FetchThreads'; // Update the import
 import ThreadsComponent from '../components/threads/ThreadsComponent';
 import { useParams } from 'react-router-dom';
-import { CategoryProps } from '../types/types';
-import { Thread } from '../types/types';
+import { CategoryProps } from '../types';
+import { Thread } from '../types';
 
 const ThreadCategory = () => {
 

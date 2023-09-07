@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/index';
 import FetchQnaThreads from '../components/threads/FetchQnaThreads';
 import QnaThreadsComponent from '../components/threads/QnaThreadsComponent';
-import { QNAThread } from '../types/types';
+import { QNAThread } from '../types';
 
 const Qna = () => {
 

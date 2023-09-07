@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User, ThreadCategory } from '../../../types/types'
+import { Thread, User, ThreadCategory } from '../../../types'
 import { useDispatch } from 'react-redux'
 import { addThread } from '../../../store/service/threadsService'
 import { useNavigate } from 'react-router-dom'
