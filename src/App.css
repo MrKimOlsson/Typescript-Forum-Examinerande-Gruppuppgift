@@ -113,12 +113,6 @@ color: #00000081;
     color: rgb(0, 121, 8);
 }
 
-.bottom-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 /* __________________________________________________________________________________________ */
 
 /* Add new thread */
@@ -161,7 +155,7 @@ border: 1px solid #ccc;
 margin: 0 0 1rem;
 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 background-color: #ffffff;
-padding: 1rem 0rem 1rem;
+padding: .7rem 0rem .7rem;
 }
 
 .comment-card p {
@@ -188,7 +182,7 @@ padding-top: 2rem;
 font-size: 1.2rem;
 display: flex;
 align-items: center;
-padding: 0rem 0rem 2rem;
+padding: .5rem 0rem 1rem;
 }
 
 .commentCreator{

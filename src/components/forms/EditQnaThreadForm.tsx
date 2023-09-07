@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../store/service/threadsService';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
-import { ChildProcess } from 'child_process';
 
 const EditThreadForm: React.FC = () => {
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
