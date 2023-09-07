@@ -17,11 +17,7 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     const { id, category } = useParams<{ id: string; category: string }>();
     const dispatch = useDispatch<AppDispatch>();
 
-    // const comments = useSelector((state: any) => state.comments.comments);
-    //  const commentsLoading = useSelector((state: any) => state.comments.loading);
-
      const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
-     
 
     useEffect(() => {
         if (id) {
@@ -45,10 +41,9 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
         );
     }
 
-        const cardStyle = {
-            backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#ffffff',
-        };
-
+    const cardStyle = {
+        backgroundColor: index % 2 === 0 ? '#f0f0f0' : '#ffffff',
+    };
 
   const handleDeleteComment = async (id: number) => {
     try {
@@ -59,13 +54,45 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     }
   };
 
+  // const handleDate = () => {
+
+  //   let formattedDate = '';
+
+  //   if(!comment.createdAt){
+  //     formattedDate = 'No date found';
+  //   } else {
+  //     // Handle date:
+  //   const timestamp = comment.createdAt;
+  //   // Create a Date object from the timestamp
+  //   const date = new Date(timestamp);
+
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  //   const day = String(date.getDate()).padStart(2, '0');
+  //   const hour = String(date.getHours()).padStart(2, '0');
+  //   const minute = String(date.getMinutes()).padStart(2, '0');
+
+  //   // Create a formatted string with the extracted components
+  //   formattedDate = `${year}-${month}-${day} ${hour}:${minute}`;
+  //   return formattedDate
+  //   }
+    
+  // }
+  // handleDate()
+  
+
   return (
     <>
     <div key={comment.id} className="comment-card" style={cardStyle}>
         <div className='content'>
+           <div className='row'>
+              {/* <p>Category: {thread.category}</p> */}
+              {/* <p>Creation date: {createdAt}</p> */}
+            </div>
             <p className='commentContent'>{comment.content}</p>
             <div className='row'>
             <p className="commentCreator">User: {comment.creator.name}</p>
+            <p className="commentCreator">{comment.createdAt}</p>
             <button onClick={() => handleDeleteComment(comment.id)}className="btn">Delete</button>
             </div>
         </div>

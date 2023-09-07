@@ -4,7 +4,9 @@ export interface User {
 	userName: string;
 }
 
-export type ThreadCategory = "THREAD" | "QNA" | "NEWS" | "SPORT" | "POLITICS" | "OTHER" | "GENERAL";
+export type ThreadCategory = "" | "qna" | "news" | "sports" | "politics" | "other" | "general";
+
+export type QnaCategory = "qna";
 
 export interface Thread {
   	id: number;
@@ -16,7 +18,7 @@ export interface Thread {
 }
 
 export interface QNAThread extends Thread {
-	category: "QNA";
+	category: "qna";
 	isAnswered: boolean;
 	commentAnswerId?: number
 }
@@ -25,11 +27,12 @@ export interface Comment {
 	id: number; 
 	thread: number;
 	content: string;
-	creator: User
+	creator: User;
+	createdAt: string;
 }
-
 
 export type CategoryProps = {
     category: ThreadCategory
   }
+
 

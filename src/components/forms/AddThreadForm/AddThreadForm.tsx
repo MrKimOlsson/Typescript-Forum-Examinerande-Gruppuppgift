@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User, ThreadCategory } from '../../../types'
-import { useDispatch } from 'react-redux'
-import { addThread } from '../../../store/service/threadsService'
+import { User, ThreadCategory, QnaCategory } from '../../../types'
+// import { useDispatch } from 'react-redux'
+import { addThread, addQnaThread } from '../../../store/service/threadsService'
 import { useNavigate } from 'react-router-dom'
 import { addUser, getUserByName } from '../../../store/service/userService'
 
 const AddThreadForm = () => {
-    const [thread, setThread] = useState<Thread[]>([])
+    // const [thread, setThread] = useState<Thread[]>([]) - VARFÖR VAR DEN HÄR HÄR? :S
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('general')
     const [user, setUser] = useState<string>('')
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -23,20 +23,44 @@ const AddThreadForm = () => {
         const max: number = 1000000;
         const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
+        const creationDate = new Date()
+        const timeZone = 'Europe/Stockholm';
+        const dateFormatter = new Intl.DateTimeFormat('sv-SE', {timeZone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+        })
+
+        const formattedDate = dateFormatter.format(creationDate)
+
         const userObject: User = {
             id: randomNumber,
             name: user,
             userName: user + randomNumber,
         }
 
+        if (category === 'qna') {
+            addQnaThread({
+              id: randomNumber,
+              title,
+              description,
+              category: category as QnaCategory,
+              creator: userObject,
+              creationDate: formattedDate,
+              isAnswered: false, // Provide a default value
+            });
+          } else {
             addThread({
-                id: randomNumber,
-                title,
-                description,
-                category: category as ThreadCategory,
-                creator: userObject,
-                creationDate: new Date().toISOString(),
-            })
+              id: randomNumber,
+              title,
+              description,
+              category: category as ThreadCategory,
+              creator: userObject,
+              creationDate: formattedDate,
+            });
+          }
 
             const userByName = await getUserByName(userObject.name)
             if(userByName) {

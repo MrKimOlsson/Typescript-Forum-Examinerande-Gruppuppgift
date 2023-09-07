@@ -3,27 +3,28 @@ import { useDispatch } from 'react-redux';
 import { setQnaThreadsList } from '../../store/slices/qnaThreadsSlice';
 import threadsService from '../../store/service/threadsService';
 
-// interface Props {
-//   category: string;
-// }
-
 const FetchQnaThreads = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     async function fetchAndSetThreads() {
       try {
         const threadsData = await threadsService.fetchQnaThreads('qna');
+        
+        // Sortera Q&A-trådarna efter creationDate innan du sparar dem i Redux store
+        threadsData.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
+
+        // Skicka de sorterade Q&A-trådarna till Redux store
         dispatch(setQnaThreadsList(threadsData));
       } catch (error) {
-        // Handle error
+        // Hantera fel
       }
     }
 
     fetchAndSetThreads();
-  }, []);
+  }, [dispatch]);
 
-  return <div>{/* You can render something here if needed */}</div>;
+  return <></>;
 };
 
 export default FetchQnaThreads;

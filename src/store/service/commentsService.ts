@@ -10,7 +10,7 @@ async function addComment(category: string | undefined, threadId: string, commen
       thread: parseInt(threadId, 10),
       id: Date.now()  
     };
-    // check if thread is a q&a 
+
     const threadDoc = doc(db, category+'threads', threadId)
     const threadSnapshot = await getDoc(threadDoc);
 

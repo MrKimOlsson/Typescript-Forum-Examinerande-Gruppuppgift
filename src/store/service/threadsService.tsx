@@ -13,6 +13,17 @@ export async function addThread(thread: Thread): Promise<void> {
   }
 }
 
+export async function addQnaThread(thread: QNAThread): Promise<void> {
+  try {
+
+    const threadRef = doc(db, "qnathreads", thread.id.toString());
+    await setDoc(threadRef, thread);
+    console.log("Ny tråd skapad med ID:", thread.id);
+  } catch (error) {
+    console.error("Fel vid tillägg av tråd:", error);
+  }
+}
+
 // Dynamic fetch function to get threads of any category
 async function fetchThreads(category: string): Promise<Thread[]> {
   try {
@@ -126,14 +137,15 @@ export async function getThreadById(threadId: string, category?: string): Promis
   }
 }
 
-
 const threadsSevice = {
   deleteThread,
   deleteQnaThread,
   updateThread,
   getThreadById,
   fetchThreads,
-  fetchQnaThreads
+  fetchQnaThreads,
+  addQnaThread,
+  addThread,
 }
 
 export default threadsSevice
