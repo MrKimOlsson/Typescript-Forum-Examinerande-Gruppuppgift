@@ -5,7 +5,7 @@ import { QNAThread, Thread } from "../../types";
 export async function addThread(thread: Thread): Promise<void> {
   try {
 
-    const threadRef = doc(db, thread.category+"threads", thread.id.toString());
+    const threadRef = doc(db, thread.category + "threads", thread.id.toString());
     await setDoc(threadRef, thread);
     console.log("Ny tråd skapad med ID:", thread.id);
   } catch (error) {
@@ -27,7 +27,7 @@ export async function addQnaThread(thread: QNAThread): Promise<void> {
 // Dynamic fetch function to get threads of any category
 async function fetchThreads(category: string): Promise<Thread[]> {
   try {
-    const ThreadsCollectionRef = collection(db, category+'threads');
+    const ThreadsCollectionRef = collection(db, category + 'threads');
     const threadsSnapshot = await getDocs(ThreadsCollectionRef);
     const threads: Thread[] = [];
     threadsSnapshot.forEach((doc) => {
@@ -43,7 +43,7 @@ async function fetchThreads(category: string): Promise<Thread[]> {
 
 async function fetchQnaThreads(category: string): Promise<QNAThread[]> {
   try {
-    const ThreadsCollectionRef = collection(db, category+'threads');
+    const ThreadsCollectionRef = collection(db, category + 'threads');
     const threadsSnapshot = await getDocs(ThreadsCollectionRef);
     const qnaThreads: QNAThread[] = [];
     threadsSnapshot.forEach((doc) => {
@@ -78,17 +78,37 @@ async function deleteThread(threadId: string, thread: Thread): Promise<void> {
 
 async function deleteQnaThread(threadId: string, thread: QNAThread): Promise<void> {
   try {
+    console.log('Attempting to delete QNA Thread with ID:', threadId);
+
+    // kollar mot fieldname thread i db
+    const commentsQuery = query(collection(db, 'comments'), where('thread', '==', parseInt(threadId, 10)));
+
+    const commentsSnapshot = await getDocs(commentsQuery);
+
+    console.log('number of comments found:', commentsSnapshot.size);  
+
+    const deleteCommentsPromises = commentsSnapshot.docs.map(docSnapshot => deleteDoc(doc(db, 'comments', docSnapshot.id)));
+    await Promise.all(deleteCommentsPromises);
+
+    console.log('Comments deleted successfully')
+    
     const threadRef = doc(db, "qnathreads", threadId);
     await deleteDoc(threadRef);
+
+    console.log('QNA Thread deleted successfully'); 
+
   } catch (error) {
-    console.error('Error deleting thread:', error);
+    console.error('Error deleting QNA thread:', error);
     throw error;
   }
 }
 
+
+
+
 export async function updateThread(threadId: string, thread: Thread, updatedThread: Partial<Thread>): Promise<void> {
   try {
-    const threadRef = doc(db, thread.category+"threads", threadId); // Ändra till 'generalthreads'
+    const threadRef = doc(db, thread.category + "threads", threadId); // Ändra till 'generalthreads'
     console.log(thread.category)
     console.log(threadId)
     console.log(thread)
@@ -102,7 +122,7 @@ export async function updateThread(threadId: string, thread: Thread, updatedThre
 
 export async function getThreadById(threadId: string, category?: string): Promise<any | null> {
   try {
-    const threadRef = doc(db, category+"threads", threadId); // Ändra till 'generalthreads'
+    const threadRef = doc(db, category + "threads", threadId); // Ändra till 'generalthreads'
     const threadDoc = await getDoc(threadRef);
 
     if (threadDoc.exists()) {
