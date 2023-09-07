@@ -30,6 +30,21 @@ type RootStateProps = {
 // }
 
 
+// TYPE GUARDS ----------
+// in ThreadsPage component, type guards are used at isValidComment.
+// "isValidComment"  validates individuel comments and checks that a comment has valid content and creator name properties, and a numeric ID before it is displayed on the frontend. This helps in avoiding possible errors that might wanna try to pass through.
+// with a type guard  we are making sure that only valid comments thats following Comment type to make it through to the sortedComments array which is later used to map and render the comment components.
+// this helps it be crash safe and keeps data clean.
+
+
+// TYPESAFE ----------
+// ThreadsPage is type safe because:
+// we are using types and interfaces that defines the structure on object variables which helps us follow their structure and format.
+// handleCommitSubmit expects a string parameter and returns none
+// typescripts omit when creating commentobject gives exakt controll över the types.
+
+
+
 function isValidComment(comment: Comment): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
