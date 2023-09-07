@@ -71,6 +71,7 @@ const ThreadsPage = () => {
     );
   }
 
+
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const comment: Omit<Comment, 'id'> = {

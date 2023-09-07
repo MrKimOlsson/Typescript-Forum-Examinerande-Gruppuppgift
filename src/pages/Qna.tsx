@@ -20,7 +20,7 @@ const Qna = () => {
   return (
     <div className='threadWrapper'>
       <div className='categoryWrapper'>
-        <h2>QNA threads</h2>
+        <h2>QNA</h2>
       </div>
       {/* Pass 'categoryName' to the FetchThreads component */}
       <FetchQnaThreads/> {/* Update the component name here */}
