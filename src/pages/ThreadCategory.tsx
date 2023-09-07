@@ -14,8 +14,6 @@ const ThreadCategory = () => {
     // threads collection contains all threads with no category.
     const [currentCategory, setCategory] = useState(category || '');
 
-    // const threadsList = useSelector((state: RootState) => (state.threads as {threadsList: Thread[] }).threadsList);
-
     // Use a type guard to check if threadsList is an array of Thread
     const threadsList = useSelector((state: RootState) => {
       if (Array.isArray(state.threads.threadsList)) {
@@ -34,7 +32,6 @@ const ThreadCategory = () => {
 
     let categoryTitle = '';
 
-    console.log(category)
     if(category === 'general'){
       categoryTitle = 'General'
     }
