@@ -4,7 +4,7 @@ export interface User {
 	userName: string;
 }
 
-export type ThreadCategory = "THREAD" | "QNA" | "NEWS" | "SPORT" | "POLITICS" | "OTHER" | "GENERAL";
+export type ThreadCategory = "" | "qna" | "news" | "sports" | "politics" | "other" | "general";
 
 export interface Thread {
   	id: number;
@@ -16,7 +16,7 @@ export interface Thread {
 }
 
 export interface QNAThread extends Thread {
-	category: "QNA";
+	category: "qna";
 	isAnswered: boolean;
 	commentAnswerId?: number
 }

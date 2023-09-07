@@ -17,11 +17,7 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
     const { id, category } = useParams<{ id: string; category: string }>();
     const dispatch = useDispatch<AppDispatch>();
 
-    // const comments = useSelector((state: any) => state.comments.comments);
-    //  const commentsLoading = useSelector((state: any) => state.comments.loading);
-
      const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
-     
 
     useEffect(() => {
         if (id) {
