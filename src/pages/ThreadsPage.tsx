@@ -76,6 +76,7 @@ const ThreadsPage = () => {
     );
   }
 
+
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const currentDate = new Date();
@@ -108,6 +109,8 @@ const ThreadsPage = () => {
       console.error('Error adding comment:', error);
     }
   };
+
+  
 
   return (
     <div className='wrapper'>
