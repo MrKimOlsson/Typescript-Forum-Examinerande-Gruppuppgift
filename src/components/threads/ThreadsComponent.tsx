@@ -41,7 +41,7 @@ const ThreadsComponent: React.FC<ThreadsProps> = ({ thread, index }) => {
           </div>
           <h4 className='threadTitle'>{thread.title}</h4>
           <p className='threadDescription descriptionStyle'>{thread.description}</p>
-          <p className='threadCreator'>Author: {thread.creator.userName}</p>
+          <p className='threadCreator'>Author: {thread.creator.name}</p>
           <br />
         </div>
       </Link>

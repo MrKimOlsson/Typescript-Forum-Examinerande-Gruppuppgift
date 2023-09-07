@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
-import { Thread, User, ThreadCategory } from '../../../types'
-import { useDispatch } from 'react-redux'
-import { addThread } from '../../../store/service/threadsService'
+import { User, ThreadCategory, QnaCategory } from '../../../types'
+// import { useDispatch } from 'react-redux'
+import { addThread, addQnaThread } from '../../../store/service/threadsService'
 import { useNavigate } from 'react-router-dom'
 import { addUser, getUserByName } from '../../../store/service/userService'
 
@@ -41,15 +41,26 @@ const AddThreadForm = () => {
             userName: user + randomNumber,
         }
 
+        if (category === 'qna') {
+            addQnaThread({
+              id: randomNumber,
+              title,
+              description,
+              category: category as QnaCategory,
+              creator: userObject,
+              creationDate: formattedDate,
+              isAnswered: false, // Provide a default value
+            });
+          } else {
             addThread({
-                id: randomNumber,
-                title,
-                description,
-                category: category as ThreadCategory,
-                creator: userObject,
-                creationDate: formattedDate,
-                // creationDate: new Date().toISOString(),
-            })
+              id: randomNumber,
+              title,
+              description,
+              category: category as ThreadCategory,
+              creator: userObject,
+              creationDate: formattedDate,
+            });
+          }
 
             const userByName = await getUserByName(userObject.name)
             if(userByName) {

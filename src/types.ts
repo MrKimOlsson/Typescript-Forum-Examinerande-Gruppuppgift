@@ -6,6 +6,8 @@ export interface User {
 
 export type ThreadCategory = "" | "qna" | "news" | "sports" | "politics" | "other" | "general";
 
+export type QnaCategory = "qna";
+
 export interface Thread {
   	id: number;
 	title: string;
@@ -26,10 +28,11 @@ export interface Comment {
 	thread: number;
 	content: string;
 	creator: User;
+	createdAt: string;
 }
-
 
 export type CategoryProps = {
     category: ThreadCategory
   }
+
 
