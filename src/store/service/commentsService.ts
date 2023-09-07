@@ -88,6 +88,29 @@ async function deleteComment(id: number): Promise<void> {
 
     if (!querySnapshot.empty) {
       const docId = querySnapshot.docs[0].id;
+      const threadId = querySnapshot.docs[0].data().thread;
+
+      const allCommentsQuery = query(
+        collection(db, "comments"),
+        where("thread", "==", threadId)
+      );
+      const allCommentsSnapshot = await getDocs(allCommentsQuery);
+
+      if (allCommentsSnapshot.size === 1) {
+        const threadDoc = doc(db, "qnathreads", threadId.toString());
+        const threadSnapshot = await getDoc(threadDoc);
+
+        if (threadSnapshot.exists()) {
+          const threadData = threadSnapshot.data();
+
+          const updatedThread = {
+            ...threadData,
+            isAnswered: false,
+          };
+          await updateDoc(threadDoc, updatedThread);
+        }
+      }
+
       await deleteDoc(doc(db, "comments", docId));
       console.log(`Comment with ID ${id} has been deleted.`);
     } else {
