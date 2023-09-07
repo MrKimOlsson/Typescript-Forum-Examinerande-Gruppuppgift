@@ -67,13 +67,23 @@ async function deleteThread(threadId: string, thread: Thread): Promise<void> {
 
 async function deleteQnaThread(threadId: string, thread: QNAThread): Promise<void> {
   try {
+
+    const commentsQuery = query(collection(db, 'comments'), where('threadId', '==', thread.id));
+    const commentsSnapshot = await getDocs(commentsQuery);
+
+    const deleteCommentsPromises = commentsSnapshot.docs.map(docSnapshot => deleteDoc(doc(db, 'comments', docSnapshot.id)));
+    await Promise.all(deleteCommentsPromises);
+
+    // Step 2: Delete the QNAThread itself
     const threadRef = doc(db, "qnathreads", threadId);
     await deleteDoc(threadRef);
   } catch (error) {
-    console.error('Error deleting thread:', error);
+    console.error('Error deleting QNA thread:', error);
     throw error;
   }
 }
+
+
 
 export async function updateThread(threadId: string, thread: Thread, updatedThread: Partial<Thread>): Promise<void> {
   try {
