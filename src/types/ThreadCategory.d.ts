@@ -1,0 +1,1 @@
+declare type ThreadCategory = "" | "qna" | "news" | "sports" | "politics" | "other" | "general";

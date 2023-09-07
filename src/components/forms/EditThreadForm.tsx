@@ -3,12 +3,11 @@ import { useParams } from 'react-router-dom';
 import { updateThread, getThreadById } from '../../store/service/threadsService';
 import { useNavigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
-import { ThreadCategory, Thread, User } from '../../types';
+// import { ThreadCategory, Thread, User } from '../../types';
 
 const EditThreadForm: React.FC = () => {
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
-    const [user, setUser] = useState<string>('')
-
+    const user: string = ""
     const min: number = 1;
     const max: number = 1000000;
     const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -18,6 +17,7 @@ const EditThreadForm: React.FC = () => {
         name: user,
         userName: user + randomNumber,
     }
+
     const [thread, setThread] = useState<Thread | null>(null);
     const [newThreadInfo, setNewThreadInfo] = useState<Thread>({
         title: '',
@@ -39,7 +39,6 @@ const EditThreadForm: React.FC = () => {
                 setNewThreadInfo((prev) => ({
                   ...prev,
                   title: response.title,
-                  description: response.description,
                   category: response.category,
                   id: response.id,
                   creator: response.creator,
@@ -54,7 +53,7 @@ const EditThreadForm: React.FC = () => {
                     console.error('Fel vid hämtning av tråd:', error);
                 });
         }
-    }, [threadId]);
+    }, [threadId, category]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -98,30 +97,12 @@ const EditThreadForm: React.FC = () => {
                         </div>
                         <div className="input-group">
                             <label className='form-label' htmlFor="description">Description:</label>
-                            <textarea
+                            <textarea className='form-textarea'
                                 id="description"
                                 name="description"
                                 value={newThreadInfo.description}
                                 onChange={handleInputChange}
                             />
-                        </div>
-                        <div className="input-group">
-                            <label className='form-label' htmlFor="category">Category:</label>
-                            <select
-                                required
-                                className="form-select"
-                                id="category"
-                                name="category"
-                                value={newThreadInfo.category}
-                                onChange={handleInputChange}
-                            >
-                                <option value="general">General</option>
-                                <option value="qna">QNA</option>
-                                <option value="news">News</option>
-                                <option value="sports">Sports</option>
-                                <option value="politics">Politics</option>
-                                <option value="other">Other</option>
-                            </select>
                         </div>
                         <button type="submit">Update Thread</button>
                     </form>
@@ -135,49 +116,3 @@ const EditThreadForm: React.FC = () => {
 };
 
 export default EditThreadForm;
-
-
-
-
-
-
-
-// import '../../index.css'
-// import '../AddThreadForm/addThreadForm.css'
-
-// const EditThreadForm: React.FC = () => {
-//     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
-//     console.log(category)
-//     console.log(threadId)
-//     const [thread, setThread] = useState<any>(null);
-//     const [newThreadInfo, setNewThreadInfo] = useState<any>({
-//         title: '',
-//         description: '',
-//         category: '',
-//     });
-//     const navigate = useNavigate();
-
-//     useEffect(() => {
-//         if (threadId) {
-//             getThreadById(threadId, category)
-//                 .then((response) => {
-//                     if (response) {
-//                         console.log(response);
-//                         setThread(response);
-
-//                         // Uppdatera newThreadInfo med befintlig information från tråden
-//                         setNewThreadInfo({
-//                             title: response.title,
-//                             description: response.description,
-//                             category: response.category,
-//                         });
-//                     } else {
-//                         console.log('Tråden hittades inte.');
-//                     }
-//                 })
-//                 .catch((error) => {
-//                     // Hantera fel här
-//                     console.error('Fel vid hämtning av tråd:', error);
-//                 });
-//         }
-//     }, [threadId]);
