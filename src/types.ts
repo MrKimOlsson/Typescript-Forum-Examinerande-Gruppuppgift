@@ -25,7 +25,7 @@ export interface Comment {
 	id: number; 
 	thread: number;
 	content: string;
-	creator: User
+	creator: User;
 }
 
 

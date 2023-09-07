@@ -92,6 +92,8 @@ const ThreadsPage = () => {
     }
   };
 
+  
+
   return (
     <div className='wrapper'>
       <div className='thread'>

@@ -7,14 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import { addUser, getUserByName } from '../../../store/service/userService'
 
 const AddThreadForm = () => {
-    const [thread, setThread] = useState<Thread[]>([])
+    // const [thread, setThread] = useState<Thread[]>([]) - VARFÖR VAR DEN HÄR HÄR? :S
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('general')
     const [user, setUser] = useState<string>('')
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -22,6 +22,18 @@ const AddThreadForm = () => {
         const min: number = 1;
         const max: number = 1000000;
         const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        const creationDate = new Date()
+        const timeZone = 'Europe/Stockholm';
+        const dateFormatter = new Intl.DateTimeFormat('sv-SE', {timeZone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+        })
+
+        const formattedDate = dateFormatter.format(creationDate)
 
         const userObject: User = {
             id: randomNumber,
@@ -35,7 +47,8 @@ const AddThreadForm = () => {
                 description,
                 category: category as ThreadCategory,
                 creator: userObject,
-                creationDate: new Date().toISOString(),
+                creationDate: formattedDate,
+                // creationDate: new Date().toISOString(),
             })
 
             const userByName = await getUserByName(userObject.name)
