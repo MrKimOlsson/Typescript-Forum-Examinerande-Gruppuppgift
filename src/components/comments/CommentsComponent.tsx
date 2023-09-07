@@ -66,6 +66,7 @@ const CommentsComponent: React.FC<ThreadsProps> = ({ comment, index }) => {
             <p className='commentContent'>{comment.content}</p>
             <div className='row'>
             <p className="commentCreator">User: {comment.creator.name}</p>
+            <p className="commentCreator">{comment.createdAt}</p>
             <button onClick={() => handleDeleteComment(comment.id)}className="btn">Delete</button>
             </div>
         </div>

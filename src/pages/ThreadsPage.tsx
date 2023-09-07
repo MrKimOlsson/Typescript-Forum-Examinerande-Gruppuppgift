@@ -43,17 +43,22 @@ const ThreadsPage = () => {
 
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
+  const sortedComments = comments
+    .filter(isValidComment)
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .reverse()
+
   useEffect(() => {
     if (id) {
       dispatch(fetchCommentsByThreadId(parseInt(id, 10)));
     }
   }, [id, dispatch]);
 
-  if(loading) {
+  if (loading) {
     return <Loader />
   }
 
-  if(error) {
+  if (error) {
     return <p>Error: {error}</p>
   }
 
@@ -73,6 +78,18 @@ const ThreadsPage = () => {
 
   const handleCommentSubmit = async (commentText: string) => {
     try {
+      const currentDate = new Date();
+      const timeZone = 'Europe/Stockholm';
+      const dateFormatter = new Intl.DateTimeFormat('sv-SE', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+
+      const formattedDate = dateFormatter.format(currentDate)
       const comment: Omit<Comment, 'id'> = {
         thread: Number(thread.id),
         creator: {
@@ -80,7 +97,8 @@ const ThreadsPage = () => {
           name: "Anonymous",
           userName: "AnonymousUser"
         },
-        content: commentText
+        content: commentText,
+        createdAt: formattedDate,
       };
 
       const newComment = await addComment(category, id, comment);
@@ -111,14 +129,13 @@ const ThreadsPage = () => {
       </div>
       <div className='thread'>
         {commentsLoading && <Loader />}
-        {comments.length > 0 ? (
-          comments.filter(isValidComment).map((comment: Comment, index: number) => (
+        {sortedComments.length > 0 ? (
+          sortedComments.map((comment: Comment, index: number) => (
             <CommentsComponent key={comment.id} comment={comment} index={index} />
           ))
         ) : (
           <h5 className='noCommentsText'>Be the first to comment!</h5>
         )}
-
       </div>
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
