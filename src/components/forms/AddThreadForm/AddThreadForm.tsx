@@ -1,28 +1,31 @@
 import React, { useState } from 'react'
 import './addThreadForm.css'
 import { User, ThreadCategory, QnaCategory } from '../../../types'
-// import { useDispatch } from 'react-redux'
 import { addThread, addQnaThread } from '../../../store/service/threadsService'
 import { useNavigate } from 'react-router-dom'
 import { addUser, getUserByName } from '../../../store/service/userService'
 
 const AddThreadForm = () => {
-    // const [thread, setThread] = useState<Thread[]>([]) - VARFÖR VAR DEN HÄR HÄR? :S
+
+      // Define states for various form inputs
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('general')
-    const [user, setUser] = useState<string>('')
+    const [user, setUser] = useState('')
 
+    // Initialize the React Router DOM's navigation function
     const navigate = useNavigate()
-    // const dispatch = useDispatch()
 
+    // Function to handle form submission
     const addNewThread = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        // Generate a random number for the thread's ID
         const min: number = 1;
         const max: number = 1000000;
         const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
+        // Get the current date and format it
         const creationDate = new Date()
         const timeZone = 'Europe/Stockholm';
         const dateFormatter = new Intl.DateTimeFormat('sv-SE', {timeZone,
@@ -35,12 +38,14 @@ const AddThreadForm = () => {
 
         const formattedDate = dateFormatter.format(creationDate)
 
+        // Create a user object with random ID and username
         const userObject: User = {
             id: randomNumber,
             name: user,
             userName: user + randomNumber,
         }
 
+        // Check if the selected category is 'qna' and add a Q&A thread
         if (category === 'qna') {
             addQnaThread({
               id: randomNumber,
@@ -52,6 +57,7 @@ const AddThreadForm = () => {
               isAnswered: false, // Provide a default value
             });
           } else {
+            // Add a regular thread
             addThread({
               id: randomNumber,
               title,
@@ -62,6 +68,7 @@ const AddThreadForm = () => {
             });
           }
 
+            // Check if the user already exists, if not, add the user
             const userByName = await getUserByName(userObject.name)
             if(userByName) {
                 console.log('user already exist')
@@ -71,6 +78,7 @@ const AddThreadForm = () => {
                 console.log('user does not exist, added user with id: ' + randomNumber)
                 addUser(userObject)
             }
+            // Navigate back to the homepage after form submission
             navigate('/')
     }
 
