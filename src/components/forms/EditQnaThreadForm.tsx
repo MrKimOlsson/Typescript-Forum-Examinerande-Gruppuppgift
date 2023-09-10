@@ -5,18 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import './AddThreadForm/addThreadForm.css'
 
 const EditThreadForm: React.FC = () => {
+
+    // Get threadId and category from URL params
     const { threadId, category } = useParams<{ threadId?: string; category?: string }>();
+
+    // Initialize user-related data
     const user: string = ""
     const min: number = 1;
     const max: number = 1000000;
     const randomNumber: number = Math.floor(Math.random() * (max - min + 1)) + min;
 
+    // Create a user object with a random ID and username
     const userObject: User = {
         id: randomNumber,
         name: user,
         userName: user + randomNumber,
     }
 
+    // Get the current date and format it
     const creationDate = new Date()
         const timeZone = 'Europe/Stockholm';
         const dateFormatter = new Intl.DateTimeFormat('sv-SE', {timeZone,
@@ -29,6 +35,7 @@ const EditThreadForm: React.FC = () => {
 
     const formattedDate = dateFormatter.format(creationDate)
 
+    // Initialize thread states
     const [thread, setThread] = useState<QNAThread | null>(null);
     console.log('thread: ')
     console.log(thread)
@@ -44,13 +51,15 @@ const EditThreadForm: React.FC = () => {
     });
     const navigate = useNavigate();
 
+    // Fetch thread data and populate the form if threadId is provided
     useEffect(() => {
         if (threadId) {
           getThreadById(threadId, 'qna')
             .then((response) => {
               if (response) {
                 console.log(response);
-                setThread(response);              
+                setThread(response);   
+                // Update newThreadInfo with thread data           
                 setNewThreadInfo((prev) => ({
                   ...prev,
                   title: response.title,
@@ -67,12 +76,13 @@ const EditThreadForm: React.FC = () => {
             // }
             })
                 .catch((error) => {
-                    // Hantera fel här
+                    // Handle errors here
                     console.error('Fel vid hämtning av tråd:', error);
                 });
         }
     }, [threadId, category]);
 
+    // Function to handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setNewThreadInfo({
@@ -94,12 +104,15 @@ const EditThreadForm: React.FC = () => {
         reloadPage();
       }
 
+    // Function to handle form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Update the thread using the provided data
         if (thread && threadId) {
             await updateThread(threadId, thread, newThreadInfo);
             
+            // Navigate to the specified category page and reload the page
             handleNavigation()
             // navigate('/category/qna')
         } else {
@@ -155,7 +168,7 @@ const EditThreadForm: React.FC = () => {
                     </form>
                 </div>
             ) : (
-                // Om tråden inte hittades, visa ett felmeddelande
+                // If the thread is not found, display an error message
                 <p>Tråden hittades inte.</p>
             )}
         </div>
@@ -163,13 +176,3 @@ const EditThreadForm: React.FC = () => {
 };
 
 export default EditThreadForm;
-
-// import React from 'react'
-
-// const EditQnaThreadForm = () => {
-//   return (
-//     <div>EditQnaThreadForm</div>
-//   )
-// }
-
-// export default EditQnaThreadForm
