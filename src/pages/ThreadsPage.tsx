@@ -42,7 +42,7 @@ type RootStateProps = {
 // typescripts omit when creating commentobject gives exakt controll över the types.
 
 
-
+// type guard for comments, makes sure that valid comments are processed further
 function isValidComment(comment: Comment): comment is Comment {
   return typeof comment.content === 'string' && typeof comment.creator.name === 'string' && typeof comment.id === 'number';
 }
@@ -51,16 +51,21 @@ const ThreadsPage = () => {
   const { id, category } = useParams<ThreadProps>();
   const dispatch = useDispatch<AppDispatch>();
 
+   // using redux hooks to select state values
   const comments = useSelector((state: RootStateProps) => state.comments.comments);
   const commentsLoading = useSelector((state: RootStateProps) => state.comments.loading);
 
+
+    // hook to fetch threads dataa
   const { data: thread, error, loading } = useDoc(category + 'threads', id || '');
 
+  // sorting comments 
   const sortedComments = comments
     .filter(isValidComment)
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .reverse()
 
+   // useEffect hook to dispatch action to fetch comments
   useEffect(() => {
     if (id) {
       dispatch(fetchCommentsByThreadId(parseInt(id, 10)));
@@ -89,7 +94,7 @@ const ThreadsPage = () => {
     );
   }
 
-
+//handleCommentSubmit handles new comments, creating a new comment object 
   const handleCommentSubmit = async (commentText: string) => {
     try {
       const currentDate = new Date();
